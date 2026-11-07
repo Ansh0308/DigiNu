@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json.schemastore.org/design-tokens.json",
+  "name": "DigiNu Design Tokens",
+  "version": "1.0.0",
+  "color": {
+    "brand": {
+      "defaultPrimary": { "value": "#B91C1C", "type": "color", "description": "Default Terracotta Red" },
+      "defaultPrimaryFg": { "value": "#FFFFFF", "type": "color" },
+      "defaultAccent": { "value": "#F59E0B", "type": "color", "description": "Warm Amber Accent" }
+    },
+    "dietary": {
+      "vegDot": { "value": "#16A34A", "type": "color", "description": "Vegetarian green indicator" },
+      "vegBg": { "value": "#DCFCE7", "type": "color" },
+      "vegBorder": { "value": "#86EFAC", "type": "color" },
+      "nonVegDot": { "value": "#DC2626", "type": "color", "description": "Non-Vegetarian brown/red indicator" },
+      "nonVegBg": { "value": "#FEE2E2", "type": "color" },
+      "nonVegBorder": { "value": "#FCA5A5", "type": "color" },
+      "veganBg": { "value": "#ECFDF5", "type": "color" },
+      "veganFg": { "value": "#065F46", "type": "color" },
+      "glutenFreeBg": { "value": "#FEF3C7", "type": "color" },
+      "glutenFreeFg": { "value": "#92400E", "type": "color" },
+      "spicyFg": { "value": "#EA580C", "type": "color" }
+    },
+    "feedback": {
+      "soldOutBadgeBg": { "value": "rgba(28, 25, 23, 0.85)", "type": "color" },
+      "soldOutBadgeFg": { "value": "#FFFFFF", "type": "color" },
+      "soldOutCardOpacity": { "value": "0.50", "type": "opacity" },
+      "success": { "value": "#16A34A", "type": "color" },
+      "warning": { "value": "#D97706", "type": "color" },
+      "error": { "value": "#DC2626", "type": "color" },
+      "info": { "value": "#2563EB", "type": "color" }
+    },
+    "themes": {
+      "warmCream": {
+        "canvasBg": { "value": "#FAF8F5", "type": "color" },
+        "surfaceCard": { "value": "#FFFFFF", "type": "color" },
+        "surfaceBorder": { "value": "#EFECE6", "type": "color" },
+        "textPrimary": { "value": "#1C1917", "type": "color" },
+        "textMuted": { "value": "#78716C", "type": "color" }
+      },
+      "cleanWhite": {
+        "canvasBg": { "value": "#FFFFFF", "type": "color" },
+        "surfaceCard": { "value": "#F9FAFB", "type": "color" },
+        "surfaceBorder": { "value": "#E5E7EB", "type": "color" },
+        "textPrimary": { "value": "#111827", "type": "color" },
+        "textMuted": { "value": "#6B7280", "type": "color" }
+      },
+      "midnightCharcoal": {
+        "canvasBg": { "value": "#0F0F11", "type": "color" },
+        "surfaceCard": { "value": "#18181B", "type": "color" },
+        "surfaceBorder": { "value": "#27272A", "type": "color" },
+        "textPrimary": { "value": "#F4F4F5", "type": "color" },
+        "textMuted": { "value": "#A1A1AA", "type": "color" }
+      }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "editorialSerif": { "value": "'Cormorant Garamond', 'Playfair Display', Georgia, serif", "type": "fontFamily" },
+      "humanistSans": { "value": "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif", "type": "fontFamily" },
+      "modernSans": { "value": "'Inter', 'Geist Sans', -apple-system, sans-serif", "type": "fontFamily" }
+    },
+    "fontSize": {
+      "xs": { "value": "0.75rem", "type": "dimension", "comment": "12px microcopy" },
+      "sm": { "value": "0.875rem", "type": "dimension", "comment": "14px descriptions" },
+      "base": { "value": "1.00rem", "type": "dimension", "comment": "16px body copy" },
+      "lg": { "value": "1.125rem", "type": "dimension", "comment": "18px dish titles" },
+      "xl": { "value": "1.25rem", "type": "dimension", "comment": "20px category headings" },
+      "2xl": { "value": "1.50rem", "type": "dimension", "comment": "24px section titles" },
+      "3xl": { "value": "1.875rem", "type": "dimension", "comment": "30px restaurant title" },
+      "4xl": { "value": "2.25rem", "type": "dimension", "comment": "36px hero display" }
+    },
+    "fontWeight": {
+      "normal": { "value": "400", "type": "fontWeight" },
+      "medium": { "value": "500", "type": "fontWeight" },
+      "semibold": { "value": "600", "type": "fontWeight" },
+      "bold": { "value": "700", "type": "fontWeight" }
+    },
+    "lineHeight": {
+      "tight": { "value": "1.2", "type": "lineHeight" },
+      "snug": { "value": "1.375", "type": "lineHeight" },
+      "normal": { "value": "1.5", "type": "lineHeight" },
+      "relaxed": { "value": "1.625", "type": "lineHeight" }
+    }
+  },
+  "spacing": {
+    "1": { "value": "0.25rem", "type": "dimension", "comment": "4px" },
+    "2": { "value": "0.50rem", "type": "dimension", "comment": "8px" },
+    "3": { "value": "0.75rem", "type": "dimension", "comment": "12px" },
+    "4": { "value": "1.00rem", "type": "dimension", "comment": "16px" },
+    "5": { "value": "1.25rem", "type": "dimension", "comment": "20px" },
+    "6": { "value": "1.50rem", "type": "dimension", "comment": "24px" },
+    "8": { "value": "2.00rem", "type": "dimension", "comment": "32px" },
+    "10": { "value": "2.50rem", "type": "dimension", "comment": "40px" },
+    "12": { "value": "3.00rem", "type": "dimension", "comment": "48px" },
+    "16": { "value": "4.00rem", "type": "dimension", "comment": "64px" }
+  },
+  "borderRadius": {
+    "none": { "value": "0px", "type": "borderRadius" },
+    "sm": { "value": "4px", "type": "borderRadius" },
+    "md": { "value": "8px", "type": "borderRadius", "comment": "Buttons and inputs" },
+    "lg": { "value": "12px", "type": "borderRadius", "comment": "Pills and category chips" },
+    "xl": { "value": "16px", "type": "borderRadius", "comment": "Food cards and modals" },
+    "2xl": { "value": "24px", "type": "borderRadius", "comment": "Drawers and hero containers" },
+    "full": { "value": "9999px", "type": "borderRadius", "comment": "Circular avatars and dots" }
+  },
+  "boxShadow": {
+    "none": { "value": "none", "type": "boxShadow" },
+    "sm": { "value": "0 1px 2px 0 rgba(0, 0, 0, 0.05)", "type": "boxShadow" },
+    "md": { "value": "0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04)", "type": "boxShadow" },
+    "lg": { "value": "0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03)", "type": "boxShadow" },
+    "modal": { "value": "0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04)", "type": "boxShadow" }
+  },
+  "motion": {
+    "duration": {
+      "instant": { "value": "100ms", "type": "duration", "comment": "Button press feedback" },
+      "fast": { "value": "200ms", "type": "duration", "comment": "Tooltips and pill highlights" },
+      "normal": { "value": "300ms", "type": "duration", "comment": "Card hover and modal reveals" },
+      "relaxed": { "value": "450ms", "type": "duration", "comment": "Drawer transitions and bottom sheets" },
+      "slow": { "value": "600ms", "type": "duration", "comment": "Page stagger transitions" }
+    },
+    "easing": {
+      "easeOutCubic": { "value": "cubic-bezier(0.33, 1, 0.68, 1)", "type": "easing" },
+      "easeInOutCubic": { "value": "cubic-bezier(0.65, 0, 0.35, 1)", "type": "easing" },
+      "springGentle": { "value": "cubic-bezier(0.16, 1, 0.3, 1)", "type": "easing" },
+      "springSnappy": { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)", "type": "easing" }
+    },
+    "reducedMotion": {
+      "duration": { "value": "0ms", "type": "duration" },
+      "transform": { "value": "none", "type": "string" },
+      "transition": { "value": "none", "type": "string" }
+    }
+  }
+}
+
