@@ -7,7 +7,12 @@
 - Phase 00 — Product Discovery: `APPROVED BY FREELANCER`  
 - Phase 01 — Product Requirements Document (PRD): `APPROVED BY FREELANCER`  
 - Phase 02 — Technical Architecture & Data Model: `APPROVED BY FREELANCER`  
-**Current Phase:** Phase 03 — Premium UI/UX Design, Branding & Design System (`DRAFT — REVIEW REQUIRED`)  
+- Phase 03 — Premium UI/UX Design, Branding & Design System: `APPROVED BY FREELANCER`
+**Current Phase:** Phase 04 — Implementation Roadmap & Execution  
+- BUILD-01: `COMPLETE — APPROVED BY FREELANCER`  
+- BUILD-02: `COMPLETE — APPROVED BY FREELANCER`  
+- BUILD-03: `COMPLETE — Quality Gates & Test Suites Verified` (Awaiting Developer Approval)  
+- BUILD-04 to BUILD-08: `PLANNED`
 
 ---
 
@@ -54,6 +59,7 @@
 * [07-implementation-roadmap-and-traceability.md](file:///e:/Freelance/DigiNu/docs/02-technical-architecture/07-implementation-roadmap-and-traceability.md) — 9 sequenced implementation milestones and full end-to-end RTM.
 * [08-risks-and-open-decisions.md](file:///e:/Freelance/DigiNu/docs/02-technical-architecture/08-risks-and-open-decisions.md) — Hosting cost models (1, 5, 10 venues), ImageKit/AI limits, and decisions log.
 * [09-phase-02-approval-checklist.md](file:///e:/Freelance/DigiNu/docs/02-technical-architecture/09-phase-02-approval-checklist.md) — Formal Phase 02 approval checklist.
+* [10-adr-002-nextjs16-prisma7-stack-reconciliation.md](file:///e:/Freelance/DigiNu/docs/02-technical-architecture/10-adr-002-nextjs16-prisma7-stack-reconciliation.md) — ADR-002: Upgrade Baseline to Next.js 16 Active LTS and Prisma 7 Stable (`APPROVED BY FREELANCER`).
 
 ---
 
@@ -79,7 +85,25 @@
 
 ---
 
-## 🎯 Strict Product Scope Guardrails
+### Phase 04: Implementation Planning & Execution Pack (`docs/04-implementation-roadmap/`)
+* [00-master-implementation-roadmap.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/00-master-implementation-roadmap.md) — Master roadmap: 8 BUILD phases with Mermaid dependency graph, effort estimates, and phase-level definitions of done.
+* [01-readiness-and-feature-inventory.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/01-readiness-and-feature-inventory.md) — Implementation readiness audit, complete feature inventory, external credentials required, and change decision record.
+* [02-dependency-and-traceability-matrix.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/02-dependency-and-traceability-matrix.md) — Full RTM: PRD → User Story → Screen → Entity → API → Phase → Test → Acceptance Gate.
+* [03-engineering-workflow-and-quality-gates.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/03-engineering-workflow-and-quality-gates.md) — Before/during/after coding checklists, git workflow rules, and phase transition quality gates.
+* [04-phase-04-approval-checklist.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/04-phase-04-approval-checklist.md) — Phase 04 completion checklist and readiness status.
+* **Phase Execution Documents (`phases/`):**
+  * [BUILD-01-project-foundation-and-design-system.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/phases/BUILD-01-project-foundation-and-design-system.md)
+  * [BUILD-02-database-schema-prisma-and-owner-auth.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/phases/BUILD-02-database-schema-prisma-and-owner-auth.md)
+  * [BUILD-03-restaurant-profile-and-menu-management.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/phases/BUILD-03-restaurant-profile-and-menu-management.md)
+  * [BUILD-04-imagekit-media-pipeline.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/phases/BUILD-04-imagekit-media-pipeline.md)
+  * [BUILD-05-ai-food-image-generation.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/phases/BUILD-05-ai-food-image-generation.md)
+  * [BUILD-06-public-customer-menu.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/phases/BUILD-06-public-customer-menu.md)
+  * [BUILD-07-qr-code-generation-and-print-studio.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/phases/BUILD-07-qr-code-generation-and-print-studio.md)
+  * [BUILD-08-testing-security-audit-and-deployment.md](file:///e:/Freelance/DigiNu/docs/04-implementation-roadmap/phases/BUILD-08-testing-security-audit-and-deployment.md)
+
+---
+
+
 
 * **WHAT WE ARE BUILDING:** A high-speed, mobile-first browsable digital menu for restaurant diners and a private authenticated menu-management dashboard for restaurant owners, featuring ImageKit media storage, vector table QR code generation, and AI-powered food photography (1 high-resolution image per generation).
 * **WHAT WE ARE NOT BUILDING:** No shopping carts, no checkout, no payment gateways, no online ordering, no kitchen tickets (KOT/KDS), no POS/ERP integrations, no raw inventory tracking, and no customer login accounts. Diners place their orders verbally with waitstaff.

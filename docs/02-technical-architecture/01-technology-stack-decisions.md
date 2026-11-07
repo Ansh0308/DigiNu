@@ -2,7 +2,7 @@
 
 **Document Version:** 2.0 (Independent Deployments Revision)  
 **Phase:** 02 — Technical Architecture & Data Model  
-**Status:** DRAFT — REVIEW REQUIRED  
+**Status:** APPROVED BY FREELANCER  
 **Project:** DigiNu — Reusable QR-Based Digital Restaurant Menu Platform  
 
 ---
@@ -33,13 +33,17 @@ Following stakeholder review, the platform architecture adopts **Option B: Indep
 
 ## 2. Technology Stack Decision Matrix
 
+> [!NOTE]
+> **APPROVED STACK RECONCILIATION (ADR-002 - APPROVED BY FREELANCER):**  
+> An upgrade from Next.js 15 (Maintenance LTS) to **Next.js 16 Active LTS (`next@^16.4.5`)** and from Prisma 6 to **Prisma 7 Stable (`prisma@^7.10.1`)** with `@prisma/adapter-pg` has been formally approved in [ADR-002](file:///e:/Freelance/DigiNu/docs/02-technical-architecture/10-adr-002-nextjs16-prisma7-stack-reconciliation.md). The table below reflects the approved baseline.
+
 | Technology Layer | Evaluated Options | Advantages | Disadvantages | Realistic Cost Profile | Recommendation |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Full-Stack Framework** | **Next.js 15 (App Router)** vs. Vite SPA + Express vs. Remix | Unified full-stack TypeScript monolith; Server Components (RSC) for zero-JS public menu renders; API Route Handlers for admin dashboard; built-in Edge caching. | Requires understanding React Server vs Client component boundaries. | Free / Open Source | **Next.js 15 (App Router, TypeScript)** |
-| **Styling & Theming** | **Tailwind CSS + CSS Variables** vs. Styled-Components | Zero runtime CSS overhead; responsive utility classes; dynamic CSS variables enable instant color and theme preset changes via database configuration. | Requires standardizing theme tokens. | Free / Open Source | **Tailwind CSS (v3/v4) + Lucide Icons** |
+| **Full-Stack Framework** | **Next.js 16 (App Router)** [APPROVED] vs. Next.js 15 vs. Remix | Unified full-stack TypeScript monolith; Server Components (RSC); Turbopack default; proxy.ts network interception; Active LTS. | Requires understanding React Server vs Client boundaries. | Free / Open Source | **Next.js 16.4+ (App Router, TypeScript 5.9+)** *(Approved via ADR-002)* |
+| **Styling & Theming** | **Tailwind CSS v4 + CSS Variables** vs. Styled-Components | Zero runtime CSS overhead; responsive utility classes; dynamic CSS variables enable instant color and theme preset changes via database configuration. | Requires standardizing theme tokens. | Free / Open Source | **Tailwind CSS v4 + Lucide Icons** |
 | **Database Engine** | **PostgreSQL** vs. SQLite / Turso vs. MongoDB | Native relational integrity (`ON DELETE RESTRICT/CASCADE`), foreign keys, decimal precision for prices, JSONB for flexible config, supported across all cloud providers. | Slightly heavier than SQLite for tiny sites. | $0–$5/mo per client database | **PostgreSQL (v15+)** |
-| **ORM / Data Access** | **Prisma ORM** vs. Drizzle ORM vs. Sequelize | Compile-time type safety; declarative schema; automated schema migrations (`prisma migrate`); superior developer ergonomics for rapid feature delivery. | Slightly larger engine footprint (~15MB). | Free / Open Source | **Prisma ORM** |
-| **Authentication** | **NextAuth.js (Auth.js v5)** vs. Supabase Auth vs. Custom JWT | Lightweight session cookies with `HttpOnly`, `SameSite=Lax`, and `Secure` flags; built-in CSRF protection; no external auth service dependency. | Credentials provider requires custom password hashing logic. | Free / Open Source | **NextAuth.js v5 (Credentials Provider)** |
+| **ORM / Data Access** | **Prisma 7 Stable** [APPROVED] vs. Prisma 6 vs. Drizzle ORM | Compile-time type safety; declarative schema; TypeScript client with `@prisma/adapter-pg`; config in `prisma.config.ts`. Strict pin: `prisma@^7.10.1`. | Driver adapter required in v7. | Free / Open Source | **Prisma ORM 7.x (`@prisma/adapter-pg`)** *(Approved via ADR-002)* |
+| **Authentication** | **NextAuth.js (Auth.js v5)** vs. Supabase Auth vs. Custom JWT | Lightweight session cookies with `HttpOnly`, `SameSite=Lax`, and `Secure` flags; built-in CSRF protection; integrates via `proxy.ts`. Defense-in-depth on all server actions. (Beta status noted). | Credentials provider requires custom password hashing logic. | Free / Open Source | **NextAuth.js v5 (`5.0.0-beta.32`+) (Credentials Provider)** |
 | **Image Storage & CDN** | **ImageKit.io** vs. AWS S3 + sharp vs. Cloudflare R2 | Official approved service. Built-in dynamic URL transformations (`tr:w-400,h-400,f-webp`), direct client upload with HMAC signatures, global CDN. | Hard 20GB bandwidth cutoff on Free Tier. | $0 Free (3GB DAM, 20GB BW); $9/mo Lite | **ImageKit.io (Folder-Segregated or Per-Client)** |
 | **AI Culinary Engine** | **Cloudflare Workers AI (`flux-1-schnell`)** vs. OpenAI DALL-E 3 | Free tier (10,000 Neurons/day = ~40 free generations/day); Apache 2.0 commercial model license; photorealistic food textures; < 4s generation. | Daily free cap resets at 00:00 UTC. | $0 Free; $0.011/1k Neurons overage | **Cloudflare Workers AI (`flux-1-schnell`)** |
 | **QR Code Engine** | **`qrcode` + `pdfkit`** vs. External QR API | Client-side dynamic preview with logo; server-side vector SVG, 300 DPI PNG, and table-tent PDF rendering. | None; zero external API dependencies. | Free / Open Source | **`qrcode` & `pdfkit`** |

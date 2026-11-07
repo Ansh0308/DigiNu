@@ -48,8 +48,9 @@ Stored in the deployment's `restaurant_profile` table and mapped to CSS variable
 ```css
 :root {
   /* Dynamic Restaurant Brand Tokens */
-  --brand-primary: #B91C1C;          /* Configured Primary Brand Color */
+  --brand-primary: #C85A32;          /* Configured Primary Brand Color (Warm Terracotta) */
   --brand-primary-fg: #FFFFFF;       /* Auto-calculated Accessible Contrast Text */
+  --brand-primary-hover: #B04A24;    /* Primary Brand Hover Tone */
   --brand-accent: #F59E0B;           /* Secondary Warm Accent */
   
   /* Theme Preset Variables (e.g. Warm Cream) */
@@ -60,7 +61,7 @@ Stored in the deployment's `restaurant_profile` table and mapped to CSS variable
   --text-muted: #78716C;             /* Dish Description & Microcopy */
   
   /* Typography Pairing Preset */
-  --font-heading: 'Cormorant Garamond', serif;
+  --font-heading: 'Playfair Display', serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
 }
 ```
@@ -92,7 +93,7 @@ When an owner selects their brand color in the dashboard, the system validates t
 | Preset Key          | Canvas Tone | Surface Card | Primary Text | Default Accent Color  |
 |---------------------|-------------|--------------|--------------|-----------------------|
 | `clean-white`       | #FFFFFF     | #F9FAFB      | #111827      | #2563EB (Cobalt Blue) |
-| `warm-cream`        | #FAF8F5     | #FFFFFF      | #1C1917      | #B91C1C (Terracotta)  |
+| `warm-cream`        | #FAF8F5     | #FFFFFF      | #1C1917      | #C85A32 (Terracotta)  |
 | `midnight-charcoal` | #0F0F11     | #18181B      | #F4F4F5      | #D97706 (Brushed Gold)|
 +-----------------------------------------------------------------------------------------+
 ```

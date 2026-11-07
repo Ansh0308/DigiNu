@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "color": {
     "brand": {
-      "defaultPrimary": { "value": "#B91C1C", "type": "color", "description": "Default Terracotta Red" },
+      "defaultPrimary": { "value": "#C85A32", "type": "color", "description": "Default Warm Terracotta Primary" },
       "defaultPrimaryFg": { "value": "#FFFFFF", "type": "color" },
+      "defaultPrimaryHover": { "value": "#B04A24", "type": "color", "description": "Warm Terracotta Hover" },
       "defaultAccent": { "value": "#F59E0B", "type": "color", "description": "Warm Amber Accent" }
     },
     "dietary": {
@@ -56,7 +57,7 @@
   },
   "typography": {
     "fontFamily": {
-      "editorialSerif": { "value": "'Cormorant Garamond', 'Playfair Display', Georgia, serif", "type": "fontFamily" },
+      "editorialSerif": { "value": "'Playfair Display', 'Cormorant Garamond', Georgia, serif", "type": "fontFamily" },
       "humanistSans": { "value": "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif", "type": "fontFamily" },
       "modernSans": { "value": "'Inter', 'Geist Sans', -apple-system, sans-serif", "type": "fontFamily" }
     },

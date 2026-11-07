@@ -1,0 +1,152 @@
+// DigiNu Single-Tenant Restaurant Menu Platform
+// Database Schema — PostgreSQL
+// Phase 02 / BUILD-02
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model RestaurantProfile {
+  id                    String   @id @default(cuid())
+  singletonKey          String   @unique @default("RESTAURANT_PROFILE_SINGLETON") @db.VarChar(30)
+  name                  String   @db.VarChar(100)
+  slug                  String   @db.VarChar(60)
+  tagline               String?  @db.VarChar(160)
+  aboutStory            String?  @db.Text
+  address               String?  @db.VarChar(255)
+  phone                 String?  @db.VarChar(30)
+  whatsapp              String?  @db.VarChar(30)
+  currencyCode          String   @default("USD") @db.VarChar(3)
+  currencySymbol        String   @default("$") @db.VarChar(5)
+  currencyPosition      String   @default("PREFIX") @db.VarChar(6)
+  themePreset           String   @default("warm-cream") @db.VarChar(30)
+  primaryColor          String   @default("#C85A32") @db.VarChar(7)
+  accentColor           String   @default("#F59E0B") @db.VarChar(7)
+  logoAssetId           String?
+  bannerAssetId         String?
+  aiCreditsBalance      Int      @default(30)
+  aiCreditsMonthlyLimit Int      @default(30)
+  updatedAt             DateTime @updatedAt
+
+  logoAsset   MediaAsset? @relation("LogoAsset", fields: [logoAssetId], references: [id], onDelete: SetNull)
+  bannerAsset MediaAsset? @relation("BannerAsset", fields: [bannerAssetId], references: [id], onDelete: SetNull)
+
+  @@map("restaurant_profile")
+}
+
+model OwnerAccount {
+  id           String   @id @default(cuid())
+  singletonKey String   @unique @default("OWNER_ACCOUNT_SINGLETON") @db.VarChar(30)
+  email        String   @unique @db.VarChar(255)
+  passwordHash String   @db.VarChar(255)
+  fullName     String   @db.VarChar(100)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("owner_account")
+}
+
+model MenuCategory {
+  id           String     @id @default(cuid())
+  name         String     @db.VarChar(60)
+  subtitle     String?    @db.VarChar(160)
+  displayOrder Int        @default(0)
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  items        MenuItem[]
+
+  @@index([isActive, displayOrder], name: "idx_categories_display")
+  @@map("menu_categories")
+}
+
+model MenuItem {
+  id                  String   @id @default(cuid())
+  categoryId          String
+  name                String   @db.VarChar(100)
+  shortDescription    String?  @db.VarChar(180)
+  detailedDescription String?  @db.Text
+  price               Decimal  @db.Decimal(8, 2)
+  isVegetarian        Boolean  @default(false)
+  dietaryFlags        String[] @default([])
+  allergenFlags       String[] @default([])
+  isAvailable         Boolean  @default(true)
+  isVisible           Boolean  @default(true)
+  isFeatured          Boolean  @default(false)
+  displayOrder        Int      @default(0)
+  imageAssetId        String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  category     MenuCategory      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  imageAsset   MediaAsset?       @relation("FoodImage", fields: [imageAssetId], references: [id], onDelete: SetNull)
+  aiLogs       AIGenerationLog[]
+
+  @@index([categoryId, isVisible, displayOrder], name: "idx_menu_items_display")
+  @@map("menu_items")
+}
+
+model MediaAsset {
+  id               String   @id @default(cuid())
+  fileId           String   @unique @db.VarChar(100)
+  filePath         String   @db.VarChar(255)
+  url              String   @db.VarChar(500)
+  assetType        String   @db.VarChar(30)
+  width            Int
+  height           Int
+  sizeBytes        Int
+  originalFilename String   @db.VarChar(255)
+  createdAt        DateTime @default(now())
+
+  menuItems      MenuItem[]          @relation("FoodImage")
+  logoProfiles   RestaurantProfile[] @relation("LogoAsset")
+  bannerProfiles RestaurantProfile[] @relation("BannerAsset")
+  aiLogs         AIGenerationLog[]   @relation("SelectedAsset")
+
+  @@index([assetType], name: "idx_media_assets_type")
+  @@map("media_assets")
+}
+
+model OperatingHours {
+  id        String  @id @default(cuid())
+  dayOfWeek Int     @unique
+  openTime  String  @default("11:00") @db.VarChar(5)
+  closeTime String  @default("22:00") @db.VarChar(5)
+  isClosed  Boolean @default(false)
+
+  @@map("operating_hours")
+}
+
+model QRCodeConfig {
+  id              String   @id @default(cuid())
+  singletonKey    String   @unique @default("QR_CODE_CONFIG_SINGLETON") @db.VarChar(30)
+  foregroundColor String   @default("#000000") @db.VarChar(7)
+  embedLogo       Boolean  @default(true)
+  dotStyle        String   @default("rounded") @db.VarChar(20)
+  downloadCount   Int      @default(0)
+  updatedAt       DateTime @updatedAt
+
+  @@map("qr_code_config")
+}
+
+model AIGenerationLog {
+  id                String   @id @default(cuid())
+  menuItemId        String
+  promptSynthesized String   @db.Text
+  providerModel     String   @db.VarChar(60)
+  neuronsConsumed   Int      @default(250)
+  selectedAssetId   String?
+  createdAt         DateTime @default(now())
+
+  menuItem      MenuItem    @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  selectedAsset MediaAsset? @relation("SelectedAsset", fields: [selectedAssetId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt], name: "idx_ai_logs_created")
+  @@map("ai_generation_logs")
+}

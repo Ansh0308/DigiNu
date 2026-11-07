@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+/* ==============================================================================
+ * DIGINU DESIGN SYSTEM TOKENS & CSS CUSTOM PROPERTIES
+ * Source: docs/03-design-system/04-design-tokens.json
+ * ============================================================================== */
+
+:root {
+  /* Brand Palette (Default: Warm Terracotta) */
+  --brand-primary: #C85A32;
+  --brand-primary-hover: #B04A24;
+  --brand-primary-fg: #FFFFFF;
+  --brand-accent: #F59E0B;
+
+  /* Dietary Indicators */
+  --dietary-veg: #16A34A;
+  --dietary-veg-dot: #16A34A;
+  --dietary-veg-bg: #DCFCE7;
+  --dietary-veg-border: #86EFAC;
+  --dietary-non-veg: #DC2626;
+  --dietary-non-veg-dot: #DC2626;
+  --dietary-non-veg-bg: #FEE2E2;
+  --dietary-non-veg-border: #FCA5A5;
+  --dietary-vegan-bg: #ECFDF5;
+  --dietary-vegan-fg: #065F46;
+  --dietary-gluten-free-bg: #FEF3C7;
+  --dietary-gluten-free-fg: #92400E;
+  --dietary-spicy-fg: #EA580C;
+
+  /* Feedback & Operational States */
+  --sold-out-badge-bg: rgba(28, 25, 23, 0.85);
+  --sold-out-badge-fg: #FFFFFF;
+  --sold-out-opacity: 0.50;
+  --color-success: #16A34A;
+  --color-warning: #D97706;
+  --color-error: #DC2626;
+  --color-info: #2563EB;
+
+  /* Border Radii */
+  --radius-none: 0px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Box Shadows */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Motion & Animation Transitions */
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-relaxed: 450ms;
+  --duration-slow: 600ms;
+
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring-gentle: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring-snappy: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Default Surface Colors (Theme: Warm Cream) */
+  --canvas-bg: #FAF8F5;
+  --surface-card: #FFFFFF;
+  --surface-border: #EFECE6;
+  --text-primary: #1C1917;
+  --text-muted: #78716C;
+}
+
+/* ==============================================================================
+ * THEME PRESETS
+ * ============================================================================== */
+
+/* Theme 1: Warm Cream (Default editorial dining experience) */
+.theme-warm-cream {
+  --canvas-bg: #FAF8F5;
+  --surface-card: #FFFFFF;
+  --surface-border: #EFECE6;
+  --text-primary: #1C1917;
+  --text-muted: #78716C;
+}
+
+/* Theme 2: Clean White (Modern minimalist bistro) */
+.theme-clean-white {
+  --canvas-bg: #FFFFFF;
+  --surface-card: #F9FAFB;
+  --surface-border: #E5E7EB;
+  --text-primary: #111827;
+  --text-muted: #6B7280;
+}
+
+/* Theme 3: Midnight Charcoal (Upscale lounge & evening dining) */
+.theme-midnight-charcoal {
+  --canvas-bg: #0F0F11;
+  --surface-card: #18181B;
+  --surface-border: #27272A;
+  --text-primary: #F4F4F5;
+  --text-muted: #A1A1AA;
+}
+
+/* ==============================================================================
+ * ACCESSIBILITY & PREFERS-REDUCED-MOTION (WCAG 2.2 AA)
+ * ============================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-relaxed: 0ms;
+    --duration-slow: 0ms;
+  }
+}
+
+/* ==============================================================================
+ * BASE DOCUMENT STYLES
+ * ============================================================================== */
+
+body {
+  background-color: var(--canvas-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-editorial {
+  font-family: var(--font-editorial), Georgia, serif;
+}
+
