@@ -31,7 +31,7 @@ export default function RootLayout({
       lang="en"
       className={`${editorialSerif.variable} ${humanistSans.variable} theme-warm-cream`}
     >
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>
