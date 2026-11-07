@@ -165,3 +165,4 @@ flowchart LR
 ---
 
 *DigiNu — High-Speed Digital Menus with Intelligent Culinary Visuals.*
+

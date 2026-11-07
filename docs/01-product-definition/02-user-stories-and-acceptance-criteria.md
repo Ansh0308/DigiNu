@@ -268,3 +268,4 @@ This document specifies the core user journeys, acceptance criteria, and edge-ca
     - **Given** an owner clicks "Download PNG (Print Ready)",
     - **When** triggered,
     - **Then** a high-resolution 2048x2048 PNG at 300 DPI downloads for instant tabletop display printing.
+

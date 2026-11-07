@@ -91,3 +91,4 @@ To ensure disciplined execution for a solo freelance developer, all capabilities
 * **Timeout Threshold:** External AI generation requests must time out after 25 seconds `[TO CONFIRM]`, returning a polite error message to the owner.
 * **Concurrency Locking:** Rapid repeated clicks on the "Generate" button are prevented via client-side debouncing and server-side request mutex locks.
 * **Quota Enforcement:** Monthly generation counts are decremented atomically, preventing over-consumption beyond tenant limits.
+
