@@ -66,6 +66,7 @@
 
   /* Default Surface Colors (Theme: Warm Cream) */
   --canvas-bg: #FAF8F5;
+  --surface-canvas: #FAF8F5;
   --surface-card: #FFFFFF;
   --surface-border: #EFECE6;
   --text-primary: #1C1917;
@@ -79,6 +80,7 @@
 /* Theme 1: Warm Cream (Default editorial dining experience) */
 .theme-warm-cream {
   --canvas-bg: #FAF8F5;
+  --surface-canvas: #FAF8F5;
   --surface-card: #FFFFFF;
   --surface-border: #EFECE6;
   --text-primary: #1C1917;
@@ -88,6 +90,7 @@
 /* Theme 2: Clean White (Modern minimalist bistro) */
 .theme-clean-white {
   --canvas-bg: #FFFFFF;
+  --surface-canvas: #FFFFFF;
   --surface-card: #F9FAFB;
   --surface-border: #E5E7EB;
   --text-primary: #111827;
@@ -97,6 +100,7 @@
 /* Theme 3: Midnight Charcoal (Upscale lounge & evening dining) */
 .theme-midnight-charcoal {
   --canvas-bg: #0F0F11;
+  --surface-canvas: #0F0F11;
   --surface-card: #18181B;
   --surface-border: #27272A;
   --text-primary: #F4F4F5;
@@ -142,4 +146,108 @@ body {
 .font-editorial {
   font-family: var(--font-editorial), Georgia, serif;
 }
+
+/* ==============================================================================
+ * UTILITY CLASSES, LUXURY ANIMATIONS & KEYFRAMES
+ * ============================================================================== */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 250ms ease-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 350ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scaleUp {
+  animation: scaleUp 280ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-floatSlow {
+  animation: floatSlow 3.5s ease-in-out infinite;
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.luxury-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 215, 0, 0.15) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+
 

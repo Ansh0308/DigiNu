@@ -10,7 +10,12 @@ export default async function AdminProfilePage() {
   }
 
   const [profile, operatingHours] = await Promise.all([
-    prisma.restaurantProfile.findFirst(),
+    prisma.restaurantProfile.findFirst({
+      include: {
+        logoAsset: true,
+        bannerAsset: true,
+      },
+    }),
     prisma.operatingHours.findMany({
       orderBy: { dayOfWeek: "asc" },
     }),
@@ -37,6 +42,10 @@ export default async function AdminProfilePage() {
         themePreset: profile.themePreset,
         primaryColor: profile.primaryColor,
         accentColor: profile.accentColor,
+        logoAssetId: profile.logoAssetId,
+        bannerAssetId: profile.bannerAssetId,
+        logoUrl: profile.logoAsset?.url || null,
+        bannerUrl: profile.bannerAsset?.url || null,
       }}
       initialHours={operatingHours.map((h) => ({
         id: h.id,

@@ -2,7 +2,7 @@
 
 **Phase ID:** BUILD-06  
 **Phase Name:** Public Customer Menu (Mobile-First Experience)  
-**Status:** PENDING — Awaiting BUILD-03 Completion & Developer Authorization  
+**Status:** COMPLETE — Quality Gates Verified, Awaiting User Review  
 **Effort Estimate:** Large (4–5 days)  
 **Depends On:** BUILD-03 (Menu CRUD), BUILD-04 (ImageKit Media Pipeline recommended for assets)  
 **Next Phase:** BUILD-07 (QR Code Generation) & BUILD-08 (Testing & Deployment)  
@@ -254,15 +254,15 @@ Scenario: Diner inspects dish details
 
 ## N. Definition of Done
 
-- [ ] `GET /api/public/menu` implemented with edge caching and zero PII leaks.
-- [ ] Landing page renders all 6 screen states (`SCR-CUST-01` to `SCR-CUST-06`).
-- [ ] Sticky category bar with scroll-spy smoothly tracks visible category sections.
-- [ ] Dietary filter strip filters items instantly client-side without layout jumps.
-- [ ] Sold-out items visually distinguished with 50% opacity and red badge.
-- [ ] Dish detail bottom sheet drawer functions with swipe-down dismissal and keyboard traps.
-- [ ] Mobile responsive layout verified at 360px, 390px, 430px, and 768px.
-- [ ] Zero cart, checkout, ordering, or payment code exists in the codebase.
-- [ ] WCAG 2.2 AA audit passed (contrast >= 4.5:1, keyboard nav, screen reader labels).
+- [x] `GET /api/public/menu` implemented with edge caching and zero PII leaks.
+- [x] Landing page renders all 6 screen states (`SCR-CUST-01` to `SCR-CUST-06`).
+- [x] Sticky category bar with scroll-spy smoothly tracks visible category sections.
+- [x] Dietary filter strip filters items instantly client-side without layout jumps.
+- [x] Sold-out items visually distinguished with 50% opacity and red badge.
+- [x] Dish detail bottom sheet drawer functions with swipe-down dismissal and keyboard traps.
+- [x] Mobile responsive layout verified at 360px, 390px, 430px, and 768px.
+- [x] Zero cart, checkout, ordering, or payment code exists in the codebase.
+- [x] WCAG 2.2 AA audit passed (contrast >= 4.5:1, keyboard nav, screen reader labels).
 
 ---
 

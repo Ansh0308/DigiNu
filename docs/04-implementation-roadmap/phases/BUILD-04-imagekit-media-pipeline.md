@@ -2,7 +2,7 @@
 
 **Phase ID:** BUILD-04  
 **Phase Name:** ImageKit Media Pipeline  
-**Status:** PENDING — Awaiting BUILD-03 Completion & Developer Authorization  
+**Status:** IMPLEMENTATION APPROVED — LIVE INTEGRATION PENDING  
 **Effort Estimate:** Medium (2–3 days)  
 **Depends On:** BUILD-03 (Restaurant Profile & Menu Management CRUD)  
 **Next Phase:** BUILD-05 (AI Food Image Generation)  
@@ -456,6 +456,40 @@ Manual testing:
 4. Try uploading non-image file → verify rejection
 5. Media library page loads and shows uploaded assets
 6. Select image from media library → verify it's linked in food item form
+
+## J. Production Architecture Decisions & Provisioning (BUILD-04 Closure)
+
+### 1. Dedicated ImageKit Account Strategy per Restaurant
+- **Production Standard**: Each restaurant deployment MUST have its own isolated ImageKit account.
+- **Physical Boundary**: Do not rely on folder naming alone as a security boundary. An independent account ensures complete credential isolation (separate public key, private key, and URL endpoint).
+- **Provisioning Workflow**:
+  1. Create a free ImageKit account at `imagekit.io` dedicated to the restaurant.
+  2. In ImageKit Developer Options, obtain:
+     - `NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY`
+     - `IMAGEKIT_PRIVATE_KEY`
+     - `NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT`
+  3. Set `IMAGEKIT_FOLDER_PREFIX` to the restaurant's unique slug (e.g. `bella-italia`).
+  4. Configure these four environment variables into the restaurant's deployment container (`.env`).
+  5. Configure ImageKit Path Policies (under Settings → Upload) to enforce:
+     - Allowed MIME types: `image/jpeg`, `image/png`, `image/webp`.
+     - Max file size: `5MB` (5,242,880 bytes).
+- **Defense-in-Depth**: Retain server-side canonical folder verification in `POST /api/admin/media/confirm` to reject and auto-purge any asset uploaded outside `/restaurants/{prefix}/`.
+
+### 2. Upload Validation Model
+- **Client-Side**: Magic-byte sniffing (`JPEG: FF D8 FF`, `PNG: 89 50 4E 47`, `WebP: 52 49 46 46...57 45 42 50`) and filename sanitization are implemented strictly for user experience and instant feedback.
+- **Server-Side Security Authority**: All security assertions (size <= 5MB, authentic raster formats, canonical path) are enforced server-side using trusted ImageKit API metadata (`imagekit.getFileDetails`).
+
+### 3. Deletion Consistency & Reliability
+- **Idempotent Cloud-First Ordering**: `DELETE /api/admin/media/[id]` attempts cloud deletion first with exponential retry (up to 3 attempts).
+- **Failure Isolation**: If cloud deletion fails due to an upstream ImageKit outage (non-404), the operation halts with HTTP 502 and preserves the PostgreSQL record so the owner can retry safely.
+- **Foreign Key Decoupling**: Deletions execute cleanly without cascading to active dishes or profiles due to `onDelete: SetNull`.
+
+### 4. Integration Verification Status
+- **Current State**: Local development environment utilizes placeholder/mock credentials.
+- **Status Classification**: `IMPLEMENTATION APPROVED — LIVE INTEGRATION PENDING`.
+- **Live Cloud Verification**: Real live cloud uploading, CDN transformation retrieval, image replacement, and cloud deletion will be verified when real credentials are provided in the local or staging `.env`.
+
+---
 
 ## STOP CONDITION
 

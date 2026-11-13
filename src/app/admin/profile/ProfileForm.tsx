@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Store, Palette, Globe, Clock, Save, Loader2 } from "lucide-react";
+import { Store, Palette, Globe, Clock, Save, Loader2, Image as ImageIcon } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
+import { ImageKitUploader } from "@/components/admin/ImageKitUploader";
 
 interface OperatingHour {
   id?: string;
@@ -27,6 +28,10 @@ interface ProfileData {
   themePreset: string;
   primaryColor: string;
   accentColor: string;
+  logoAssetId?: string | null;
+  bannerAssetId?: string | null;
+  logoUrl?: string | null;
+  bannerUrl?: string | null;
 }
 
 interface ProfileFormProps {
@@ -110,6 +115,8 @@ export function ProfileForm({ initialProfile, initialHours }: ProfileFormProps) 
           themePreset: profile.themePreset,
           primaryColor: profile.primaryColor,
           accentColor: profile.accentColor,
+          logoAssetId: profile.logoAssetId ?? null,
+          bannerAssetId: profile.bannerAssetId ?? null,
         }),
       });
 
@@ -272,6 +279,77 @@ export function ProfileForm({ initialProfile, initialHours }: ProfileFormProps) 
                 className="w-full px-3.5 py-2.5 rounded-xl text-xs bg-[var(--canvas-bg)] border border-[var(--surface-border)] text-[var(--text-primary)] focus:border-[var(--brand-primary)] focus:outline-hidden transition-colors"
                 placeholder="+1 (555) 987-6543"
                 maxLength={30}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION: Visual Brand Assets (ImageKit Logo & Hero Banner) */}
+        <section className="p-6 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-xs space-y-6">
+          <div className="flex items-center gap-2.5 pb-4 border-b border-[var(--surface-border)]">
+            <ImageIcon className="w-5 h-5 text-[var(--brand-primary)]" aria-hidden="true" />
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)]">
+                Brand Visual Photography (ImageKit CDN)
+              </h2>
+              <p className="text-[11px] text-[var(--text-muted)]">
+                Upload your official brand logo and header hero banner to ImageKit cloud CDN.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Logo Slot */}
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold text-[var(--text-primary)]">
+                Restaurant Logo (Header Icon)
+              </label>
+              <ImageKitUploader
+                assetType="LOGO"
+                folderType="branding"
+                currentImageUrl={profile.logoUrl}
+                aspectRatioLabel="Square 1:1 ratio (200×200px recommended)"
+                onUploadSuccess={(asset) => {
+                  setProfile((prev) => ({
+                    ...prev,
+                    logoAssetId: asset.id,
+                    logoUrl: asset.url,
+                  }));
+                }}
+                onRemove={() => {
+                  setProfile((prev) => ({
+                    ...prev,
+                    logoAssetId: null,
+                    logoUrl: null,
+                  }));
+                }}
+              />
+            </div>
+
+            {/* Banner Slot */}
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold text-[var(--text-primary)]">
+                Hero Banner (Menu Header Cover)
+              </label>
+              <ImageKitUploader
+                assetType="BANNER"
+                folderType="branding"
+                currentImageUrl={profile.bannerUrl}
+                aspectRatioLabel="Landscape 3:1 ratio (1200×400px recommended)"
+                onUploadSuccess={(asset) => {
+                  setProfile((prev) => ({
+                    ...prev,
+                    bannerAssetId: asset.id,
+                    bannerUrl: asset.url,
+                  }));
+                }}
+                onRemove={() => {
+                  setProfile((prev) => ({
+                    ...prev,
+                    bannerAssetId: null,
+                    bannerUrl: null,
+                  }));
+                }}
               />
             </div>
           </div>

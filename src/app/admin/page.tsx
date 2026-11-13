@@ -10,6 +10,7 @@ import {
   Store,
   Clock,
   ArrowRight,
+  QrCode,
 } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -266,7 +267,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Quick Links Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
           href="/admin/categories"
           className="p-4 rounded-xl bg-[var(--surface-card)] border border-[var(--surface-border)] hover:border-[var(--brand-primary)] transition-all group flex items-center justify-between"
@@ -304,6 +305,19 @@ export default async function AdminDashboardPage() {
             <p className="text-[11px] text-[var(--text-muted)] mt-0.5">Colors, typography & hours</p>
           </div>
           <Store className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--brand-primary)]" />
+        </Link>
+
+        <Link
+          href="/admin/qr-studio"
+          className="p-4 rounded-xl bg-[var(--surface-card)] border border-[var(--surface-border)] hover:border-[var(--brand-primary)] transition-all group flex items-center justify-between"
+        >
+          <div>
+            <h3 className="text-xs font-semibold text-[var(--text-primary)] group-hover:text-[var(--brand-primary)]">
+              Table QR Studio
+            </h3>
+            <p className="text-[11px] text-[var(--text-muted)] mt-0.5">Export print-ready assets</p>
+          </div>
+          <QrCode className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--brand-primary)]" />
         </Link>
       </div>
     </div>

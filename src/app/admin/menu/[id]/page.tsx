@@ -18,6 +18,7 @@ export default async function EditDishPage({ params }: PageProps) {
   const [dish, categories, profile] = await Promise.all([
     prisma.menuItem.findUnique({
       where: { id },
+      include: { imageAsset: true },
     }),
     prisma.menuCategory.findMany({
       orderBy: { displayOrder: "asc" },
@@ -51,6 +52,8 @@ export default async function EditDishPage({ params }: PageProps) {
         isVisible: dish.isVisible,
         isFeatured: dish.isFeatured,
         displayOrder: dish.displayOrder,
+        imageAssetId: dish.imageAssetId,
+        imageUrl: dish.imageAsset?.url || null,
       }}
       mode="edit"
     />

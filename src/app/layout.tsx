@@ -30,6 +30,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${editorialSerif.variable} ${humanistSans.variable} theme-warm-cream`}
+      suppressHydrationWarning
     >
       <body className="antialiased" suppressHydrationWarning>
         {children}

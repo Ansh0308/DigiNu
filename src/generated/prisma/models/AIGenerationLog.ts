@@ -40,8 +40,12 @@ export type AIGenerationLogMinAggregateOutputType = {
   promptSynthesized: string | null
   providerModel: string | null
   neuronsConsumed: number | null
+  status: string | null
+  candidateHash: string | null
+  errorMessage: string | null
   selectedAssetId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AIGenerationLogMaxAggregateOutputType = {
@@ -50,8 +54,12 @@ export type AIGenerationLogMaxAggregateOutputType = {
   promptSynthesized: string | null
   providerModel: string | null
   neuronsConsumed: number | null
+  status: string | null
+  candidateHash: string | null
+  errorMessage: string | null
   selectedAssetId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AIGenerationLogCountAggregateOutputType = {
@@ -60,8 +68,12 @@ export type AIGenerationLogCountAggregateOutputType = {
   promptSynthesized: number
   providerModel: number
   neuronsConsumed: number
+  status: number
+  candidateHash: number
+  errorMessage: number
   selectedAssetId: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -80,8 +92,12 @@ export type AIGenerationLogMinAggregateInputType = {
   promptSynthesized?: true
   providerModel?: true
   neuronsConsumed?: true
+  status?: true
+  candidateHash?: true
+  errorMessage?: true
   selectedAssetId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type AIGenerationLogMaxAggregateInputType = {
@@ -90,8 +106,12 @@ export type AIGenerationLogMaxAggregateInputType = {
   promptSynthesized?: true
   providerModel?: true
   neuronsConsumed?: true
+  status?: true
+  candidateHash?: true
+  errorMessage?: true
   selectedAssetId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type AIGenerationLogCountAggregateInputType = {
@@ -100,8 +120,12 @@ export type AIGenerationLogCountAggregateInputType = {
   promptSynthesized?: true
   providerModel?: true
   neuronsConsumed?: true
+  status?: true
+  candidateHash?: true
+  errorMessage?: true
   selectedAssetId?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -197,8 +221,12 @@ export type AIGenerationLogGroupByOutputType = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed: number
+  status: string
+  candidateHash: string | null
+  errorMessage: string | null
   selectedAssetId: string | null
   createdAt: Date
+  updatedAt: Date
   _count: AIGenerationLogCountAggregateOutputType | null
   _avg: AIGenerationLogAvgAggregateOutputType | null
   _sum: AIGenerationLogSumAggregateOutputType | null
@@ -230,8 +258,12 @@ export type AIGenerationLogWhereInput = {
   promptSynthesized?: Prisma.StringFilter<"AIGenerationLog"> | string
   providerModel?: Prisma.StringFilter<"AIGenerationLog"> | string
   neuronsConsumed?: Prisma.IntFilter<"AIGenerationLog"> | number
+  status?: Prisma.StringFilter<"AIGenerationLog"> | string
+  candidateHash?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
+  errorMessage?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
   selectedAssetId?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AIGenerationLog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AIGenerationLog"> | Date | string
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>
   selectedAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
 }
@@ -242,8 +274,12 @@ export type AIGenerationLogOrderByWithRelationInput = {
   promptSynthesized?: Prisma.SortOrder
   providerModel?: Prisma.SortOrder
   neuronsConsumed?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  candidateHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   selectedAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   menuItem?: Prisma.MenuItemOrderByWithRelationInput
   selectedAsset?: Prisma.MediaAssetOrderByWithRelationInput
 }
@@ -257,8 +293,12 @@ export type AIGenerationLogWhereUniqueInput = Prisma.AtLeast<{
   promptSynthesized?: Prisma.StringFilter<"AIGenerationLog"> | string
   providerModel?: Prisma.StringFilter<"AIGenerationLog"> | string
   neuronsConsumed?: Prisma.IntFilter<"AIGenerationLog"> | number
+  status?: Prisma.StringFilter<"AIGenerationLog"> | string
+  candidateHash?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
+  errorMessage?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
   selectedAssetId?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AIGenerationLog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AIGenerationLog"> | Date | string
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>
   selectedAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
 }, "id">
@@ -269,8 +309,12 @@ export type AIGenerationLogOrderByWithAggregationInput = {
   promptSynthesized?: Prisma.SortOrder
   providerModel?: Prisma.SortOrder
   neuronsConsumed?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  candidateHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   selectedAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.AIGenerationLogCountOrderByAggregateInput
   _avg?: Prisma.AIGenerationLogAvgOrderByAggregateInput
   _max?: Prisma.AIGenerationLogMaxOrderByAggregateInput
@@ -287,8 +331,12 @@ export type AIGenerationLogScalarWhereWithAggregatesInput = {
   promptSynthesized?: Prisma.StringWithAggregatesFilter<"AIGenerationLog"> | string
   providerModel?: Prisma.StringWithAggregatesFilter<"AIGenerationLog"> | string
   neuronsConsumed?: Prisma.IntWithAggregatesFilter<"AIGenerationLog"> | number
+  status?: Prisma.StringWithAggregatesFilter<"AIGenerationLog"> | string
+  candidateHash?: Prisma.StringNullableWithAggregatesFilter<"AIGenerationLog"> | string | null
+  errorMessage?: Prisma.StringNullableWithAggregatesFilter<"AIGenerationLog"> | string | null
   selectedAssetId?: Prisma.StringNullableWithAggregatesFilter<"AIGenerationLog"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AIGenerationLog"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AIGenerationLog"> | Date | string
 }
 
 export type AIGenerationLogCreateInput = {
@@ -296,7 +344,11 @@ export type AIGenerationLogCreateInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   menuItem: Prisma.MenuItemCreateNestedOneWithoutAiLogsInput
   selectedAsset?: Prisma.MediaAssetCreateNestedOneWithoutAiLogsInput
 }
@@ -307,8 +359,12 @@ export type AIGenerationLogUncheckedCreateInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   selectedAssetId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIGenerationLogUpdateInput = {
@@ -316,7 +372,11 @@ export type AIGenerationLogUpdateInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutAiLogsNestedInput
   selectedAsset?: Prisma.MediaAssetUpdateOneWithoutAiLogsNestedInput
 }
@@ -327,8 +387,12 @@ export type AIGenerationLogUncheckedUpdateInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   selectedAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIGenerationLogCreateManyInput = {
@@ -337,8 +401,12 @@ export type AIGenerationLogCreateManyInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   selectedAssetId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIGenerationLogUpdateManyMutationInput = {
@@ -346,7 +414,11 @@ export type AIGenerationLogUpdateManyMutationInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIGenerationLogUncheckedUpdateManyInput = {
@@ -355,8 +427,12 @@ export type AIGenerationLogUncheckedUpdateManyInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   selectedAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIGenerationLogListRelationFilter = {
@@ -375,8 +451,12 @@ export type AIGenerationLogCountOrderByAggregateInput = {
   promptSynthesized?: Prisma.SortOrder
   providerModel?: Prisma.SortOrder
   neuronsConsumed?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  candidateHash?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
   selectedAssetId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AIGenerationLogAvgOrderByAggregateInput = {
@@ -389,8 +469,12 @@ export type AIGenerationLogMaxOrderByAggregateInput = {
   promptSynthesized?: Prisma.SortOrder
   providerModel?: Prisma.SortOrder
   neuronsConsumed?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  candidateHash?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
   selectedAssetId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AIGenerationLogMinOrderByAggregateInput = {
@@ -399,8 +483,12 @@ export type AIGenerationLogMinOrderByAggregateInput = {
   promptSynthesized?: Prisma.SortOrder
   providerModel?: Prisma.SortOrder
   neuronsConsumed?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  candidateHash?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
   selectedAssetId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AIGenerationLogSumOrderByAggregateInput = {
@@ -496,7 +584,11 @@ export type AIGenerationLogCreateWithoutMenuItemInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   selectedAsset?: Prisma.MediaAssetCreateNestedOneWithoutAiLogsInput
 }
 
@@ -505,8 +597,12 @@ export type AIGenerationLogUncheckedCreateWithoutMenuItemInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   selectedAssetId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIGenerationLogCreateOrConnectWithoutMenuItemInput = {
@@ -544,8 +640,12 @@ export type AIGenerationLogScalarWhereInput = {
   promptSynthesized?: Prisma.StringFilter<"AIGenerationLog"> | string
   providerModel?: Prisma.StringFilter<"AIGenerationLog"> | string
   neuronsConsumed?: Prisma.IntFilter<"AIGenerationLog"> | number
+  status?: Prisma.StringFilter<"AIGenerationLog"> | string
+  candidateHash?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
+  errorMessage?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
   selectedAssetId?: Prisma.StringNullableFilter<"AIGenerationLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AIGenerationLog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AIGenerationLog"> | Date | string
 }
 
 export type AIGenerationLogCreateWithoutSelectedAssetInput = {
@@ -553,7 +653,11 @@ export type AIGenerationLogCreateWithoutSelectedAssetInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   menuItem: Prisma.MenuItemCreateNestedOneWithoutAiLogsInput
 }
 
@@ -563,7 +667,11 @@ export type AIGenerationLogUncheckedCreateWithoutSelectedAssetInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIGenerationLogCreateOrConnectWithoutSelectedAssetInput = {
@@ -597,8 +705,12 @@ export type AIGenerationLogCreateManyMenuItemInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   selectedAssetId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIGenerationLogUpdateWithoutMenuItemInput = {
@@ -606,7 +718,11 @@ export type AIGenerationLogUpdateWithoutMenuItemInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   selectedAsset?: Prisma.MediaAssetUpdateOneWithoutAiLogsNestedInput
 }
 
@@ -615,8 +731,12 @@ export type AIGenerationLogUncheckedUpdateWithoutMenuItemInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   selectedAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIGenerationLogUncheckedUpdateManyWithoutMenuItemInput = {
@@ -624,8 +744,12 @@ export type AIGenerationLogUncheckedUpdateManyWithoutMenuItemInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   selectedAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIGenerationLogCreateManySelectedAssetInput = {
@@ -634,7 +758,11 @@ export type AIGenerationLogCreateManySelectedAssetInput = {
   promptSynthesized: string
   providerModel: string
   neuronsConsumed?: number
+  status?: string
+  candidateHash?: string | null
+  errorMessage?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIGenerationLogUpdateWithoutSelectedAssetInput = {
@@ -642,7 +770,11 @@ export type AIGenerationLogUpdateWithoutSelectedAssetInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutAiLogsNestedInput
 }
 
@@ -652,7 +784,11 @@ export type AIGenerationLogUncheckedUpdateWithoutSelectedAssetInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIGenerationLogUncheckedUpdateManyWithoutSelectedAssetInput = {
@@ -661,7 +797,11 @@ export type AIGenerationLogUncheckedUpdateManyWithoutSelectedAssetInput = {
   promptSynthesized?: Prisma.StringFieldUpdateOperationsInput | string
   providerModel?: Prisma.StringFieldUpdateOperationsInput | string
   neuronsConsumed?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -672,8 +812,12 @@ export type AIGenerationLogSelect<ExtArgs extends runtime.Types.Extensions.Inter
   promptSynthesized?: boolean
   providerModel?: boolean
   neuronsConsumed?: boolean
+  status?: boolean
+  candidateHash?: boolean
+  errorMessage?: boolean
   selectedAssetId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   selectedAsset?: boolean | Prisma.AIGenerationLog$selectedAssetArgs<ExtArgs>
 }, ExtArgs["result"]["aIGenerationLog"]>
@@ -684,8 +828,12 @@ export type AIGenerationLogSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   promptSynthesized?: boolean
   providerModel?: boolean
   neuronsConsumed?: boolean
+  status?: boolean
+  candidateHash?: boolean
+  errorMessage?: boolean
   selectedAssetId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   selectedAsset?: boolean | Prisma.AIGenerationLog$selectedAssetArgs<ExtArgs>
 }, ExtArgs["result"]["aIGenerationLog"]>
@@ -696,8 +844,12 @@ export type AIGenerationLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   promptSynthesized?: boolean
   providerModel?: boolean
   neuronsConsumed?: boolean
+  status?: boolean
+  candidateHash?: boolean
+  errorMessage?: boolean
   selectedAssetId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   selectedAsset?: boolean | Prisma.AIGenerationLog$selectedAssetArgs<ExtArgs>
 }, ExtArgs["result"]["aIGenerationLog"]>
@@ -708,11 +860,15 @@ export type AIGenerationLogSelectScalar = {
   promptSynthesized?: boolean
   providerModel?: boolean
   neuronsConsumed?: boolean
+  status?: boolean
+  candidateHash?: boolean
+  errorMessage?: boolean
   selectedAssetId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type AIGenerationLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menuItemId" | "promptSynthesized" | "providerModel" | "neuronsConsumed" | "selectedAssetId" | "createdAt", ExtArgs["result"]["aIGenerationLog"]>
+export type AIGenerationLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menuItemId" | "promptSynthesized" | "providerModel" | "neuronsConsumed" | "status" | "candidateHash" | "errorMessage" | "selectedAssetId" | "createdAt" | "updatedAt", ExtArgs["result"]["aIGenerationLog"]>
 export type AIGenerationLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   selectedAsset?: boolean | Prisma.AIGenerationLog$selectedAssetArgs<ExtArgs>
@@ -738,8 +894,12 @@ export type $AIGenerationLogPayload<ExtArgs extends runtime.Types.Extensions.Int
     promptSynthesized: string
     providerModel: string
     neuronsConsumed: number
+    status: string
+    candidateHash: string | null
+    errorMessage: string | null
     selectedAssetId: string | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["aIGenerationLog"]>
   composites: {}
 }
@@ -1170,8 +1330,12 @@ export interface AIGenerationLogFieldRefs {
   readonly promptSynthesized: Prisma.FieldRef<"AIGenerationLog", 'String'>
   readonly providerModel: Prisma.FieldRef<"AIGenerationLog", 'String'>
   readonly neuronsConsumed: Prisma.FieldRef<"AIGenerationLog", 'Int'>
+  readonly status: Prisma.FieldRef<"AIGenerationLog", 'String'>
+  readonly candidateHash: Prisma.FieldRef<"AIGenerationLog", 'String'>
+  readonly errorMessage: Prisma.FieldRef<"AIGenerationLog", 'String'>
   readonly selectedAssetId: Prisma.FieldRef<"AIGenerationLog", 'String'>
   readonly createdAt: Prisma.FieldRef<"AIGenerationLog", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"AIGenerationLog", 'DateTime'>
 }
     
 

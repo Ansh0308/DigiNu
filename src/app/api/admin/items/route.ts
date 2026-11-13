@@ -109,6 +109,7 @@ export async function POST(request: NextRequest) {
       isVisible: parsed.data.isVisible,
       isFeatured: parsed.data.isFeatured,
       displayOrder,
+      imageAssetId: parsed.data.imageAssetId ?? null,
     },
     include: {
       category: {

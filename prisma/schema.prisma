@@ -124,13 +124,16 @@ model OperatingHours {
 }
 
 model QRCodeConfig {
-  id              String   @id @default(cuid())
-  singletonKey    String   @unique @default("QR_CODE_CONFIG_SINGLETON") @db.VarChar(30)
-  foregroundColor String   @default("#000000") @db.VarChar(7)
-  embedLogo       Boolean  @default(true)
-  dotStyle        String   @default("rounded") @db.VarChar(20)
-  downloadCount   Int      @default(0)
-  updatedAt       DateTime @updatedAt
+  id                   String   @id @default(cuid())
+  singletonKey         String   @unique @default("QR_CODE_CONFIG_SINGLETON") @db.VarChar(30)
+  foregroundColor      String   @default("#000000") @db.VarChar(7)
+  backgroundColor      String   @default("#FFFFFF") @db.VarChar(7)
+  embedLogo            Boolean  @default(true)
+  dotStyle             String   @default("rounded") @db.VarChar(20)
+  errorCorrectionLevel String   @default("H") @db.VarChar(1)
+  calloutText          String   @default("Scan to View Digital Menu") @db.VarChar(100)
+  downloadCount        Int      @default(0)
+  updatedAt            DateTime @updatedAt
 
   @@map("qr_code_config")
 }
@@ -141,12 +144,17 @@ model AIGenerationLog {
   promptSynthesized String   @db.Text
   providerModel     String   @db.VarChar(60)
   neuronsConsumed   Int      @default(250)
+  status            String   @default("RESERVED") @db.VarChar(20)
+  candidateHash     String?  @db.VarChar(64)
+  errorMessage      String?  @db.Text
   selectedAssetId   String?
   createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
 
   menuItem      MenuItem    @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
   selectedAsset MediaAsset? @relation("SelectedAsset", fields: [selectedAssetId], references: [id], onDelete: SetNull)
 
+  @@index([status], name: "idx_ai_logs_status")
   @@index([createdAt], name: "idx_ai_logs_created")
   @@map("ai_generation_logs")
 }

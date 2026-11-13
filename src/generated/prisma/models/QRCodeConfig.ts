@@ -38,8 +38,11 @@ export type QRCodeConfigMinAggregateOutputType = {
   id: string | null
   singletonKey: string | null
   foregroundColor: string | null
+  backgroundColor: string | null
   embedLogo: boolean | null
   dotStyle: string | null
+  errorCorrectionLevel: string | null
+  calloutText: string | null
   downloadCount: number | null
   updatedAt: Date | null
 }
@@ -48,8 +51,11 @@ export type QRCodeConfigMaxAggregateOutputType = {
   id: string | null
   singletonKey: string | null
   foregroundColor: string | null
+  backgroundColor: string | null
   embedLogo: boolean | null
   dotStyle: string | null
+  errorCorrectionLevel: string | null
+  calloutText: string | null
   downloadCount: number | null
   updatedAt: Date | null
 }
@@ -58,8 +64,11 @@ export type QRCodeConfigCountAggregateOutputType = {
   id: number
   singletonKey: number
   foregroundColor: number
+  backgroundColor: number
   embedLogo: number
   dotStyle: number
+  errorCorrectionLevel: number
+  calloutText: number
   downloadCount: number
   updatedAt: number
   _all: number
@@ -78,8 +87,11 @@ export type QRCodeConfigMinAggregateInputType = {
   id?: true
   singletonKey?: true
   foregroundColor?: true
+  backgroundColor?: true
   embedLogo?: true
   dotStyle?: true
+  errorCorrectionLevel?: true
+  calloutText?: true
   downloadCount?: true
   updatedAt?: true
 }
@@ -88,8 +100,11 @@ export type QRCodeConfigMaxAggregateInputType = {
   id?: true
   singletonKey?: true
   foregroundColor?: true
+  backgroundColor?: true
   embedLogo?: true
   dotStyle?: true
+  errorCorrectionLevel?: true
+  calloutText?: true
   downloadCount?: true
   updatedAt?: true
 }
@@ -98,8 +113,11 @@ export type QRCodeConfigCountAggregateInputType = {
   id?: true
   singletonKey?: true
   foregroundColor?: true
+  backgroundColor?: true
   embedLogo?: true
   dotStyle?: true
+  errorCorrectionLevel?: true
+  calloutText?: true
   downloadCount?: true
   updatedAt?: true
   _all?: true
@@ -195,8 +213,11 @@ export type QRCodeConfigGroupByOutputType = {
   id: string
   singletonKey: string
   foregroundColor: string
+  backgroundColor: string
   embedLogo: boolean
   dotStyle: string
+  errorCorrectionLevel: string
+  calloutText: string
   downloadCount: number
   updatedAt: Date
   _count: QRCodeConfigCountAggregateOutputType | null
@@ -228,8 +249,11 @@ export type QRCodeConfigWhereInput = {
   id?: Prisma.StringFilter<"QRCodeConfig"> | string
   singletonKey?: Prisma.StringFilter<"QRCodeConfig"> | string
   foregroundColor?: Prisma.StringFilter<"QRCodeConfig"> | string
+  backgroundColor?: Prisma.StringFilter<"QRCodeConfig"> | string
   embedLogo?: Prisma.BoolFilter<"QRCodeConfig"> | boolean
   dotStyle?: Prisma.StringFilter<"QRCodeConfig"> | string
+  errorCorrectionLevel?: Prisma.StringFilter<"QRCodeConfig"> | string
+  calloutText?: Prisma.StringFilter<"QRCodeConfig"> | string
   downloadCount?: Prisma.IntFilter<"QRCodeConfig"> | number
   updatedAt?: Prisma.DateTimeFilter<"QRCodeConfig"> | Date | string
 }
@@ -238,8 +262,11 @@ export type QRCodeConfigOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   singletonKey?: Prisma.SortOrder
   foregroundColor?: Prisma.SortOrder
+  backgroundColor?: Prisma.SortOrder
   embedLogo?: Prisma.SortOrder
   dotStyle?: Prisma.SortOrder
+  errorCorrectionLevel?: Prisma.SortOrder
+  calloutText?: Prisma.SortOrder
   downloadCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -251,8 +278,11 @@ export type QRCodeConfigWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.QRCodeConfigWhereInput[]
   NOT?: Prisma.QRCodeConfigWhereInput | Prisma.QRCodeConfigWhereInput[]
   foregroundColor?: Prisma.StringFilter<"QRCodeConfig"> | string
+  backgroundColor?: Prisma.StringFilter<"QRCodeConfig"> | string
   embedLogo?: Prisma.BoolFilter<"QRCodeConfig"> | boolean
   dotStyle?: Prisma.StringFilter<"QRCodeConfig"> | string
+  errorCorrectionLevel?: Prisma.StringFilter<"QRCodeConfig"> | string
+  calloutText?: Prisma.StringFilter<"QRCodeConfig"> | string
   downloadCount?: Prisma.IntFilter<"QRCodeConfig"> | number
   updatedAt?: Prisma.DateTimeFilter<"QRCodeConfig"> | Date | string
 }, "id" | "singletonKey">
@@ -261,8 +291,11 @@ export type QRCodeConfigOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   singletonKey?: Prisma.SortOrder
   foregroundColor?: Prisma.SortOrder
+  backgroundColor?: Prisma.SortOrder
   embedLogo?: Prisma.SortOrder
   dotStyle?: Prisma.SortOrder
+  errorCorrectionLevel?: Prisma.SortOrder
+  calloutText?: Prisma.SortOrder
   downloadCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.QRCodeConfigCountOrderByAggregateInput
@@ -279,8 +312,11 @@ export type QRCodeConfigScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"QRCodeConfig"> | string
   singletonKey?: Prisma.StringWithAggregatesFilter<"QRCodeConfig"> | string
   foregroundColor?: Prisma.StringWithAggregatesFilter<"QRCodeConfig"> | string
+  backgroundColor?: Prisma.StringWithAggregatesFilter<"QRCodeConfig"> | string
   embedLogo?: Prisma.BoolWithAggregatesFilter<"QRCodeConfig"> | boolean
   dotStyle?: Prisma.StringWithAggregatesFilter<"QRCodeConfig"> | string
+  errorCorrectionLevel?: Prisma.StringWithAggregatesFilter<"QRCodeConfig"> | string
+  calloutText?: Prisma.StringWithAggregatesFilter<"QRCodeConfig"> | string
   downloadCount?: Prisma.IntWithAggregatesFilter<"QRCodeConfig"> | number
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"QRCodeConfig"> | Date | string
 }
@@ -289,8 +325,11 @@ export type QRCodeConfigCreateInput = {
   id?: string
   singletonKey?: string
   foregroundColor?: string
+  backgroundColor?: string
   embedLogo?: boolean
   dotStyle?: string
+  errorCorrectionLevel?: string
+  calloutText?: string
   downloadCount?: number
   updatedAt?: Date | string
 }
@@ -299,8 +338,11 @@ export type QRCodeConfigUncheckedCreateInput = {
   id?: string
   singletonKey?: string
   foregroundColor?: string
+  backgroundColor?: string
   embedLogo?: boolean
   dotStyle?: string
+  errorCorrectionLevel?: string
+  calloutText?: string
   downloadCount?: number
   updatedAt?: Date | string
 }
@@ -309,8 +351,11 @@ export type QRCodeConfigUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   singletonKey?: Prisma.StringFieldUpdateOperationsInput | string
   foregroundColor?: Prisma.StringFieldUpdateOperationsInput | string
+  backgroundColor?: Prisma.StringFieldUpdateOperationsInput | string
   embedLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dotStyle?: Prisma.StringFieldUpdateOperationsInput | string
+  errorCorrectionLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  calloutText?: Prisma.StringFieldUpdateOperationsInput | string
   downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -319,8 +364,11 @@ export type QRCodeConfigUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   singletonKey?: Prisma.StringFieldUpdateOperationsInput | string
   foregroundColor?: Prisma.StringFieldUpdateOperationsInput | string
+  backgroundColor?: Prisma.StringFieldUpdateOperationsInput | string
   embedLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dotStyle?: Prisma.StringFieldUpdateOperationsInput | string
+  errorCorrectionLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  calloutText?: Prisma.StringFieldUpdateOperationsInput | string
   downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -329,8 +377,11 @@ export type QRCodeConfigCreateManyInput = {
   id?: string
   singletonKey?: string
   foregroundColor?: string
+  backgroundColor?: string
   embedLogo?: boolean
   dotStyle?: string
+  errorCorrectionLevel?: string
+  calloutText?: string
   downloadCount?: number
   updatedAt?: Date | string
 }
@@ -339,8 +390,11 @@ export type QRCodeConfigUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   singletonKey?: Prisma.StringFieldUpdateOperationsInput | string
   foregroundColor?: Prisma.StringFieldUpdateOperationsInput | string
+  backgroundColor?: Prisma.StringFieldUpdateOperationsInput | string
   embedLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dotStyle?: Prisma.StringFieldUpdateOperationsInput | string
+  errorCorrectionLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  calloutText?: Prisma.StringFieldUpdateOperationsInput | string
   downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -349,8 +403,11 @@ export type QRCodeConfigUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   singletonKey?: Prisma.StringFieldUpdateOperationsInput | string
   foregroundColor?: Prisma.StringFieldUpdateOperationsInput | string
+  backgroundColor?: Prisma.StringFieldUpdateOperationsInput | string
   embedLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dotStyle?: Prisma.StringFieldUpdateOperationsInput | string
+  errorCorrectionLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  calloutText?: Prisma.StringFieldUpdateOperationsInput | string
   downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -359,8 +416,11 @@ export type QRCodeConfigCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   singletonKey?: Prisma.SortOrder
   foregroundColor?: Prisma.SortOrder
+  backgroundColor?: Prisma.SortOrder
   embedLogo?: Prisma.SortOrder
   dotStyle?: Prisma.SortOrder
+  errorCorrectionLevel?: Prisma.SortOrder
+  calloutText?: Prisma.SortOrder
   downloadCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -373,8 +433,11 @@ export type QRCodeConfigMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   singletonKey?: Prisma.SortOrder
   foregroundColor?: Prisma.SortOrder
+  backgroundColor?: Prisma.SortOrder
   embedLogo?: Prisma.SortOrder
   dotStyle?: Prisma.SortOrder
+  errorCorrectionLevel?: Prisma.SortOrder
+  calloutText?: Prisma.SortOrder
   downloadCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -383,8 +446,11 @@ export type QRCodeConfigMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   singletonKey?: Prisma.SortOrder
   foregroundColor?: Prisma.SortOrder
+  backgroundColor?: Prisma.SortOrder
   embedLogo?: Prisma.SortOrder
   dotStyle?: Prisma.SortOrder
+  errorCorrectionLevel?: Prisma.SortOrder
+  calloutText?: Prisma.SortOrder
   downloadCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -399,8 +465,11 @@ export type QRCodeConfigSelect<ExtArgs extends runtime.Types.Extensions.Internal
   id?: boolean
   singletonKey?: boolean
   foregroundColor?: boolean
+  backgroundColor?: boolean
   embedLogo?: boolean
   dotStyle?: boolean
+  errorCorrectionLevel?: boolean
+  calloutText?: boolean
   downloadCount?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["qRCodeConfig"]>
@@ -409,8 +478,11 @@ export type QRCodeConfigSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   singletonKey?: boolean
   foregroundColor?: boolean
+  backgroundColor?: boolean
   embedLogo?: boolean
   dotStyle?: boolean
+  errorCorrectionLevel?: boolean
+  calloutText?: boolean
   downloadCount?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["qRCodeConfig"]>
@@ -419,8 +491,11 @@ export type QRCodeConfigSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   singletonKey?: boolean
   foregroundColor?: boolean
+  backgroundColor?: boolean
   embedLogo?: boolean
   dotStyle?: boolean
+  errorCorrectionLevel?: boolean
+  calloutText?: boolean
   downloadCount?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["qRCodeConfig"]>
@@ -429,13 +504,16 @@ export type QRCodeConfigSelectScalar = {
   id?: boolean
   singletonKey?: boolean
   foregroundColor?: boolean
+  backgroundColor?: boolean
   embedLogo?: boolean
   dotStyle?: boolean
+  errorCorrectionLevel?: boolean
+  calloutText?: boolean
   downloadCount?: boolean
   updatedAt?: boolean
 }
 
-export type QRCodeConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "singletonKey" | "foregroundColor" | "embedLogo" | "dotStyle" | "downloadCount" | "updatedAt", ExtArgs["result"]["qRCodeConfig"]>
+export type QRCodeConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "singletonKey" | "foregroundColor" | "backgroundColor" | "embedLogo" | "dotStyle" | "errorCorrectionLevel" | "calloutText" | "downloadCount" | "updatedAt", ExtArgs["result"]["qRCodeConfig"]>
 
 export type $QRCodeConfigPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "QRCodeConfig"
@@ -444,8 +522,11 @@ export type $QRCodeConfigPayload<ExtArgs extends runtime.Types.Extensions.Intern
     id: string
     singletonKey: string
     foregroundColor: string
+    backgroundColor: string
     embedLogo: boolean
     dotStyle: string
+    errorCorrectionLevel: string
+    calloutText: string
     downloadCount: number
     updatedAt: Date
   }, ExtArgs["result"]["qRCodeConfig"]>
@@ -874,8 +955,11 @@ export interface QRCodeConfigFieldRefs {
   readonly id: Prisma.FieldRef<"QRCodeConfig", 'String'>
   readonly singletonKey: Prisma.FieldRef<"QRCodeConfig", 'String'>
   readonly foregroundColor: Prisma.FieldRef<"QRCodeConfig", 'String'>
+  readonly backgroundColor: Prisma.FieldRef<"QRCodeConfig", 'String'>
   readonly embedLogo: Prisma.FieldRef<"QRCodeConfig", 'Boolean'>
   readonly dotStyle: Prisma.FieldRef<"QRCodeConfig", 'String'>
+  readonly errorCorrectionLevel: Prisma.FieldRef<"QRCodeConfig", 'String'>
+  readonly calloutText: Prisma.FieldRef<"QRCodeConfig", 'String'>
   readonly downloadCount: Prisma.FieldRef<"QRCodeConfig", 'Int'>
   readonly updatedAt: Prisma.FieldRef<"QRCodeConfig", 'DateTime'>
 }

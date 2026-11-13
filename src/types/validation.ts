@@ -47,6 +47,8 @@ export const UpdateProfileSchema = z.object({
   themePreset: z.enum(["clean-white", "warm-cream", "midnight-charcoal"]).optional(),
   primaryColor: z.string().regex(/^#[0-9A-Fa-f]{6}$/, "Primary color must be a valid 6-character hex code (e.g. #C85A32)").optional(),
   accentColor: z.string().regex(/^#[0-9A-Fa-f]{6}$/, "Accent color must be a valid 6-character hex code (e.g. #F59E0B)").optional(),
+  logoAssetId: z.string().nullable().optional(),
+  bannerAssetId: z.string().nullable().optional(),
 });
 
 export type UpdateProfileInput = z.infer<typeof UpdateProfileSchema>;
@@ -109,6 +111,7 @@ export const CreateItemSchema = z.object({
   isVisible: z.boolean().default(true),
   isFeatured: z.boolean().default(false),
   displayOrder: z.number().int().min(0).default(0),
+  imageAssetId: z.string().nullable().optional(),
 });
 
 export const UpdateItemSchema = CreateItemSchema.partial();
@@ -125,3 +128,68 @@ export type CreateItemInput = z.infer<typeof CreateItemSchema>;
 export type UpdateItemInput = z.infer<typeof UpdateItemSchema>;
 export type UpdateAvailabilityInput = z.infer<typeof UpdateAvailabilitySchema>;
 export type ReorderItemsInput = z.infer<typeof ReorderItemsSchema>;
+
+/**
+ * ImageKit Media Confirmation Schema
+ */
+export const ConfirmUploadSchema = z.object({
+  fileId: z.string().min(1, "fileId is required").max(100),
+  filePath: z.string().min(1, "filePath is required").max(255),
+  url: z.string().url("Must be a valid ImageKit CDN URL").max(500),
+  assetType: z.enum(["LOGO", "BANNER", "FOOD_UPLOAD", "AI_GENERATED"]),
+  width: z.number().int().positive("Width must be positive integer"),
+  height: z.number().int().positive("Height must be positive integer"),
+  sizeBytes: z.number().int().positive("Size must be positive integer"),
+  originalFilename: z.string().min(1, "originalFilename is required").max(255),
+});
+
+export type ConfirmUploadInput = z.infer<typeof ConfirmUploadSchema>;
+
+/**
+ * AI Food Photography Studio Schemas
+ */
+export const GenerateAISchema = z.object({
+  menuItemId: z.string().min(1, "menuItemId is required"),
+});
+
+export const ApproveAISchema = z.object({
+  menuItemId: z.string().min(1, "menuItemId is required"),
+  reservationId: z.string().min(1, "reservationId is required"),
+  imageBufferBase64: z.string().min(50, "imageBufferBase64 must be a valid base64 payload"),
+  promptUsed: z.string().min(5, "promptUsed is required"),
+});
+
+export const CancelAISchema = z.object({
+  reservationId: z.string().min(1, "reservationId is required"),
+});
+
+export type GenerateAIInput = z.infer<typeof GenerateAISchema>;
+export type ApproveAIInput = z.infer<typeof ApproveAISchema>;
+export type CancelAIInput = z.infer<typeof CancelAISchema>;
+
+/**
+ * QR Code Studio Configuration Schemas
+ */
+export const UpdateQRCodeConfigSchema = z.object({
+  foregroundColor: z
+    .string()
+    .regex(/^#[0-9A-Fa-f]{6}$/, "Foreground color must be a valid 6-character hex code (e.g. #000000)")
+    .optional(),
+  backgroundColor: z
+    .string()
+    .regex(/^#[0-9A-Fa-f]{6}$/, "Background color must be a valid 6-character hex code (e.g. #FFFFFF)")
+    .optional(),
+  embedLogo: z.boolean().optional(),
+  dotStyle: z.enum(["rounded", "classic", "dots", "squares"]).optional(),
+  errorCorrectionLevel: z.enum(["L", "M", "Q", "H"]).optional(),
+  calloutText: z.string().trim().min(1, "Callout text cannot be empty").max(100, "Callout text must not exceed 100 characters").optional(),
+});
+
+export const DownloadQRCodeQuerySchema = z.object({
+  format: z.enum(["svg", "png", "pdf"]),
+});
+
+export type UpdateQRCodeConfigInput = z.infer<typeof UpdateQRCodeConfigSchema>;
+export type DownloadQRCodeQueryInput = z.infer<typeof DownloadQRCodeQuerySchema>;
+
+

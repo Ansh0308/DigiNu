@@ -13,6 +13,8 @@ import {
   Menu,
   X,
   Sparkles,
+  FolderOpen,
+  QrCode,
 } from "lucide-react";
 import { logoutAction } from "@/app/admin/login/actions";
 
@@ -27,7 +29,9 @@ const NAV_ITEMS: NavItem[] = [
   { name: "Overview", href: "/admin", icon: LayoutDashboard, exact: true },
   { name: "Categories", href: "/admin/categories", icon: Layers },
   { name: "Menu & 86 Hub", href: "/admin/menu", icon: UtensilsCrossed },
+  { name: "Media Library", href: "/admin/media", icon: FolderOpen },
   { name: "Profile & Hours", href: "/admin/profile", icon: Store },
+  { name: "QR Studio", href: "/admin/qr-studio", icon: QrCode },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {

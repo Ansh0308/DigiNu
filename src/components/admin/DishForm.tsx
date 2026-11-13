@@ -14,8 +14,11 @@ import {
   Sparkles,
   Upload,
   FolderOpen,
+  Check,
 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
+import { ImageKitUploader } from "@/components/admin/ImageKitUploader";
+import { AIStudioModal } from "@/components/admin/AIStudioModal";
 
 export interface CategoryOption {
   id: string;
@@ -36,6 +39,8 @@ export interface DishFormData {
   isVisible: boolean;
   isFeatured: boolean;
   displayOrder: number;
+  imageAssetId?: string | null;
+  imageUrl?: string | null;
 }
 
 interface DishFormProps {
@@ -98,11 +103,32 @@ export function DishForm({
       isVisible: true,
       isFeatured: false,
       displayOrder: 0,
+      imageAssetId: null,
+      imageUrl: null,
     }
   );
 
   const [activeImageTab, setActiveImageTab] = useState<"upload" | "library" | "ai">("upload");
+  const [libraryAssets, setLibraryAssets] = useState<{ id: string; url: string; originalFilename: string }[]>([]);
+  const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
+  const [isAIModalOpen, setIsAIModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const fetchLibraryAssets = async () => {
+    if (libraryAssets.length > 0) return;
+    setIsLoadingLibrary(true);
+    try {
+      const res = await fetch("/api/admin/media");
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setLibraryAssets(data.data);
+      }
+    } catch {
+      toast.error("Failed to load media library assets");
+    } finally {
+      setIsLoadingLibrary(false);
+    }
+  };
 
   // Toggle dietary flag
   const toggleDietaryFlag = (flag: string) => {
@@ -167,6 +193,7 @@ export function DishForm({
         isAvailable: formData.isAvailable,
         isVisible: formData.isVisible,
         isFeatured: formData.isFeatured,
+        imageAssetId: formData.imageAssetId || null,
       };
 
       const response = await fetch(endpoint, {
@@ -511,7 +538,10 @@ export function DishForm({
           </button>
           <button
             type="button"
-            onClick={() => setActiveImageTab("library")}
+            onClick={() => {
+              setActiveImageTab("library");
+              fetchLibraryAssets();
+            }}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer ${
               activeImageTab === "library"
                 ? "bg-[var(--surface-card)] text-[var(--text-primary)] shadow-xs font-semibold"
@@ -535,18 +565,174 @@ export function DishForm({
           </button>
         </div>
 
-        {/* Placeholder container */}
-        <div className="p-8 border-2 border-dashed border-[var(--surface-border)] rounded-xl text-center space-y-2 bg-[var(--canvas-bg)]">
-          <p className="text-xs font-semibold text-[var(--text-primary)]">
-            {activeImageTab === "upload" && "Direct ImageKit Browser Upload"}
-            {activeImageTab === "library" && "Central Media Asset Library"}
-            {activeImageTab === "ai" && "1-Image Flux-1 Schnell AI Culinary Engine"}
-          </p>
-          <p className="text-[11px] text-[var(--text-muted)] max-w-sm mx-auto">
-            Media upload and generation will be integrated in BUILD-04 and BUILD-05. You can save your dish now and attach photos later.
-          </p>
-        </div>
+        {/* Tab 1: Upload via ImageKit */}
+        {activeImageTab === "upload" && (
+          <ImageKitUploader
+            assetType="FOOD_UPLOAD"
+            folderType="dishes"
+            currentImageUrl={formData.imageUrl}
+            aspectRatioLabel="Recommended 16:9 or 1:1 culinary photo"
+            onUploadSuccess={(asset) => {
+              setFormData((prev) => ({
+                ...prev,
+                imageAssetId: asset.id,
+                imageUrl: asset.url,
+              }));
+            }}
+            onRemove={() => {
+              setFormData((prev) => ({
+                ...prev,
+                imageAssetId: null,
+                imageUrl: null,
+              }));
+            }}
+          />
+        )}
+
+        {/* Tab 2: Pick from Media Library */}
+        {activeImageTab === "library" && (
+          <div className="space-y-3">
+            {isLoadingLibrary ? (
+              <div className="py-8 flex items-center justify-center gap-2 text-xs text-[var(--text-muted)]">
+                <Loader2 className="w-4 h-4 animate-spin text-[var(--brand-primary)]" />
+                <span>Loading media assets...</span>
+              </div>
+            ) : libraryAssets.length === 0 ? (
+              <div className="py-8 text-center text-xs text-[var(--text-muted)] border border-dashed border-[var(--surface-border)] rounded-xl bg-[var(--canvas-bg)]">
+                No uploaded photos found in the media library. Use the &quot;Upload Photo&quot; tab above to add dish photos.
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 max-h-60 overflow-y-auto p-1">
+                {libraryAssets.map((asset) => {
+                  const isSelected = formData.imageAssetId === asset.id;
+                  return (
+                    <button
+                      key={asset.id}
+                      type="button"
+                      onClick={() => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          imageAssetId: asset.id,
+                          imageUrl: asset.url,
+                        }));
+                        toast.success(`Selected "${asset.originalFilename}"`);
+                      }}
+                      className={`group relative aspect-square rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
+                        isSelected
+                          ? "border-[var(--brand-primary)] ring-2 ring-[var(--brand-primary)]/30"
+                          : "border-[var(--surface-border)] hover:border-stone-400"
+                      }`}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`${asset.url}?tr=w-150,h-150,c-at_max,f-webp,q-80`}
+                        alt={asset.originalFilename}
+                        className="w-full h-full object-cover"
+                      />
+                      {isSelected && (
+                        <div className="absolute inset-0 bg-[var(--brand-primary)]/30 flex items-center justify-center">
+                          <Check className="w-5 h-5 text-white drop-shadow-md" />
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            {formData.imageUrl && (
+              <div className="flex items-center justify-between text-xs pt-2">
+                <span className="text-[var(--text-muted)]">Photo linked to dish</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, imageAssetId: null, imageUrl: null }))
+                  }
+                  className="text-rose-500 hover:underline cursor-pointer"
+                >
+                  Unlink Photo
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Tab 3: AI Food Image Studio */}
+        {activeImageTab === "ai" && (
+          <div className="space-y-4">
+            {initialData?.id ? (
+              <div className="p-8 border-2 border-dashed border-[var(--brand-primary)]/30 rounded-2xl text-center space-y-4 bg-[var(--surface-bg)]">
+                <div className="w-12 h-12 rounded-2xl bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center mx-auto">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <div className="max-w-md mx-auto space-y-1">
+                  <h3 className="font-editorial text-base font-semibold text-[var(--text-primary)]">
+                    Generate Studio Food Photography with AI
+                  </h3>
+                  <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+                    Synthesize custom ceramic plating, macro side lighting, and fresh garnishes
+                    tailored to &ldquo;{formData.name}&rdquo;. Preview before approving.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsAIModalOpen(true)}
+                  className="px-6 py-2.5 bg-[var(--brand-primary)] text-white text-xs font-semibold rounded-xl hover:opacity-90 transition-opacity inline-flex items-center gap-2 shadow-xs cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>Launch AI Studio Modal</span>
+                </button>
+              </div>
+            ) : (
+              <div className="p-8 border-2 border-dashed border-[var(--surface-border)] rounded-2xl text-center space-y-3 bg-[var(--surface-bg)]">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mx-auto">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div className="max-w-md mx-auto space-y-1">
+                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">
+                    Save Dish First to Enable AI Studio
+                  </h3>
+                  <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+                    AI prompt synthesis requires the dish record and its category relationship.
+                    Please publish or save this dish first, then launch the AI Studio from the edit screen.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {formData.imageUrl && (
+              <div className="flex items-center justify-between text-xs pt-1">
+                <span className="text-[var(--text-muted)]">Active photo linked to dish</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, imageAssetId: null, imageUrl: null }))
+                  }
+                  className="text-rose-500 hover:underline cursor-pointer"
+                >
+                  Unlink Photo
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </section>
+
+      {/* AI Studio Modal */}
+      {initialData?.id && (
+        <AIStudioModal
+          isOpen={isAIModalOpen}
+          onClose={() => setIsAIModalOpen(false)}
+          menuItemId={initialData.id}
+          dishName={formData.name}
+          onApplySuccess={(asset) => {
+            setFormData((prev) => ({
+              ...prev,
+              imageAssetId: asset.id,
+              imageUrl: asset.url,
+            }));
+          }}
+        />
+      )}
 
       {/* Bottom Action Row */}
       <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--surface-border)]">

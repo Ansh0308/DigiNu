@@ -1161,8 +1161,11 @@ export const QRCodeConfigScalarFieldEnum = {
   id: 'id',
   singletonKey: 'singletonKey',
   foregroundColor: 'foregroundColor',
+  backgroundColor: 'backgroundColor',
   embedLogo: 'embedLogo',
   dotStyle: 'dotStyle',
+  errorCorrectionLevel: 'errorCorrectionLevel',
+  calloutText: 'calloutText',
   downloadCount: 'downloadCount',
   updatedAt: 'updatedAt'
 } as const
@@ -1176,8 +1179,12 @@ export const AIGenerationLogScalarFieldEnum = {
   promptSynthesized: 'promptSynthesized',
   providerModel: 'providerModel',
   neuronsConsumed: 'neuronsConsumed',
+  status: 'status',
+  candidateHash: 'candidateHash',
+  errorMessage: 'errorMessage',
   selectedAssetId: 'selectedAssetId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type AIGenerationLogScalarFieldEnum = (typeof AIGenerationLogScalarFieldEnum)[keyof typeof AIGenerationLogScalarFieldEnum]

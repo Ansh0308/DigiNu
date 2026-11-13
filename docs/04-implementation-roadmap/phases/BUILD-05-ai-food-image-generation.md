@@ -2,7 +2,7 @@
 
 **Phase ID:** BUILD-05  
 **Phase Name:** AI Food Image Generation (Cloudflare Workers AI)  
-**Status:** PENDING — Awaiting BUILD-04 Completion & Developer Authorization  
+**Status:** COMPLETE — Remediated & Quality Gates Verified (53/53 Tests, TS, Lint, Build Passed)  
 **Effort Estimate:** Medium (2–3 days)  
 **Depends On:** BUILD-04 (ImageKit Media Pipeline)  
 **Next Phase:** BUILD-08 (Testing, Security Audit & Client Deployment)  
@@ -529,6 +529,32 @@ Manual testing:
 6. Click "Regenerate" → new photo generated → verify credit NOT decremented yet
 7. Close modal without approving → check Prisma Studio: no changes to dish image or credits
 8. Set ai_credits_balance to 0 in Prisma Studio → try generate → verify 402 error response
+
+## Q. Durable Credit Lifecycle & Model Specification (Remediation Reconciliation)
+
+### 1. Authoritative Credit Consumption & Refund Matrix
+| Event | Credit Behavior | Durable Database State |
+|---|---|---|
+| Generation request fails | Refund 1 credit | `AIGenerationLog.status = 'REFUNDED'` |
+| Cloudflare timeout (25s) or invalid response | Refund 1 credit | `AIGenerationLog.status = 'REFUNDED'` |
+| Successful generation returns valid image | Permanently consume 1 credit | `AIGenerationLog.status = 'GENERATED'` |
+| Owner closes preview / dismisses modal | Credit REMAINS consumed | `AIGenerationLog.status = 'DISCARDED'` |
+| Owner discards generated image | Credit REMAINS consumed | `AIGenerationLog.status = 'DISCARDED'` |
+| Owner regenerates | Discards previous candidate; new request consumes another credit | Previous candidate `DISCARDED`; new candidate `RESERVED` -> `GENERATED` |
+| Owner approves image | No additional generation credit consumed (consumed at generation) | `AIGenerationLog.status = 'APPROVED'` |
+
+### 2. Durable State Machine (`ai_generation_logs`)
+- Persisted in PostgreSQL via migration `20261107163620_add_ai_log_status_and_lifecycle`.
+- Supported states: `RESERVED`, `GENERATING`, `GENERATED`, `APPROVED`, `DISCARDED`, `FAILED`, `REFUNDED`.
+- Zero in-memory dependency: Server restarts and multi-instance deployments maintain exact balance and audit consistency.
+- Exactly-Once Refund: `refundFailedGeneration()` executes conditional update `WHERE status IN ('RESERVED', 'GENERATING')`; if already refunded or generated, update count is 0 and balance increment is prevented.
+
+### 3. Cloudflare Workers AI Model Parameters
+- Model: `@cf/black-forest-labs/flux-1-schnell`
+- Supported Request Schema: `{ prompt: string, num_steps?: number }` (default 4 steps).
+- Resolution: Native output from Cloudflare inference. The application never sends unsupported `width`/`height` parameters. Returned buffers are inspected via binary magic bytes (`sniffImageFormat`) to verify authentic JPEG, PNG, or WebP signatures.
+
+---
 
 ## STOP CONDITION
 
