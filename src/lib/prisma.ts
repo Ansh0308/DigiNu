@@ -7,7 +7,15 @@ const globalForPrisma = globalThis as unknown as {
   pool: Pool | undefined;
 };
 
-const connectionString = process.env.DATABASE_URL;
+// Normalize connection string for managed cloud databases (e.g. Aiven)
+const rawConnectionString = process.env.DATABASE_URL;
+const connectionString = rawConnectionString?.replace("sslmode=require", "sslmode=no-verify");
+
+const isCloudPostgres =
+  connectionString?.includes("aivencloud.com") ||
+  connectionString?.includes("sslmode=no-verify") ||
+  connectionString?.includes("sslmode=require") ||
+  process.env.NODE_ENV === "production";
 
 const pool =
   globalForPrisma.pool ??
@@ -15,6 +23,7 @@ const pool =
     connectionString,
     max: 10,
     idleTimeoutMillis: 30000,
+    ssl: isCloudPostgres ? { rejectUnauthorized: false } : undefined,
   });
 
 const adapter = new PrismaPg(pool);
