@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "postinstall": "prisma generate",
     "lint": "eslint .",
     "test": "tsx tests/auth-and-db.test.ts && tsx tests/build-03-crud.test.ts && tsx tests/build-04-imagekit.test.ts && tsx tests/build-05-ai.test.ts && tsx tests/build-06-customer-menu.test.ts && tsx tests/build-07-qr.test.ts"
   },

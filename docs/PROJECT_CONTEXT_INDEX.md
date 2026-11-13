@@ -15,8 +15,18 @@
 - BUILD-04: `COMPLETE — APPROVED BY FREELANCER`  
 - BUILD-05: `COMPLETE — APPROVED BY FREELANCER`  
 - BUILD-06: `COMPLETE — APPROVED BY FREELANCER`  
-- BUILD-07: `COMPLETE — Quality Gates & Full Verification Passed` (Awaiting Developer Approval)  
-- BUILD-08: `PLANNED`
+- BUILD-07: `COMPLETE — APPROVED BY FREELANCER`  
+- BUILD-08: `IN PROGRESS — Production Readiness & Client Deployment Guided Workflow`
+
+---
+
+### Phase 08: Production Deployment & Maintenance (`docs/08-deployment/`)
+* [01-production-readiness-audit.md](file:///e:/Freelance/DigiNu/docs/08-deployment/01-production-readiness-audit.md) — Pre-deployment code audit, type safety, linting, and build verification.
+* [02-hosting-provider-comparison.md](file:///e:/Freelance/DigiNu/docs/08-deployment/02-hosting-provider-comparison.md) — Comparative evaluation of Railway vs Render vs Coolify VPS.
+* [03-production-deployment-runbook.md](file:///e:/Freelance/DigiNu/docs/08-deployment/03-production-deployment-runbook.md) — Step-by-step beginner-friendly production deployment runbook.
+* [04-environment-variables-checklist.md](file:///e:/Freelance/DigiNu/docs/08-deployment/04-environment-variables-checklist.md) — Complete environment variable reference and pre-flight validation.
+* [05-production-smoke-test-checklist.md](file:///e:/Freelance/DigiNu/docs/08-deployment/05-production-smoke-test-checklist.md) — 17-point production smoke test and acceptance protocol.
+* [06-security-and-maintenance-guide.md](file:///e:/Freelance/DigiNu/docs/08-deployment/06-security-and-maintenance-guide.md) — Security threat defense, pg_dump backup procedures, and upstream Git sync.
 
 ---
 
