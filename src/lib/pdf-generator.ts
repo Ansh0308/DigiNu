@@ -12,7 +12,7 @@ export interface TableTentPdfOptions {
 
 /**
  * Generate a print-ready A6 table-tent PDF (105mm × 148mm) with 3mm bleed/trim marks.
- * Conforms to standard commercial print shop specifications.
+ * Uses dynamic text height calculation to prevent any overlapping regardless of text length.
  */
 export async function generateTableTentPdf(
   options: TableTentPdfOptions
@@ -40,10 +40,10 @@ export async function generateTableTentPdf(
       const doc = new PDFDocument({
         size: [pageWidth, pageHeight],
         margins: {
-          top: 24,
-          bottom: 24,
-          left: 24,
-          right: 24,
+          top: 18,
+          bottom: 18,
+          left: 18,
+          right: 18,
         },
         info: {
           Title: `${restaurantName} — Digital Menu Table Tent`,
@@ -60,10 +60,10 @@ export async function generateTableTentPdf(
       doc.on("error", (err: Error) => reject(err));
 
       // --- Draw 3mm Bleed & Trim Crop Marks (Professional Print Shop Marks) ---
-      const markLength = 12;
+      const markLength = 10;
       doc.save();
       doc.lineWidth(0.5);
-      doc.strokeColor("#999999");
+      doc.strokeColor("#A0A0A0");
 
       // Top-Left crop marks
       doc.moveTo(bleedPt, 0).lineTo(bleedPt, markLength).stroke();
@@ -85,58 +85,91 @@ export async function generateTableTentPdf(
 
       // --- Outer Decorative Card Border ---
       const cardMargin = 16;
+      const contentWidth = pageWidth - cardMargin * 2;
+      const innerPadding = 12;
+      const textAreaWidth = contentWidth - innerPadding * 2;
+      const textStartX = cardMargin + innerPadding;
+
       doc.save();
       doc.lineWidth(1);
       doc.strokeColor("#E6E4DF");
       doc.rect(
         cardMargin,
         cardMargin,
-        pageWidth - cardMargin * 2,
+        contentWidth,
         pageHeight - cardMargin * 2
       ).stroke();
       doc.restore();
 
       // --- Header: Restaurant Branding ---
-      let currentY = 40;
+      let currentY = cardMargin + 14;
 
-      // Restaurant Title
+      // Dynamic Title Font Size based on text length
+      const titleText = restaurantName.toUpperCase();
+      let titleFontSize = 18;
+      if (titleText.length > 28) {
+        titleFontSize = 14;
+      } else if (titleText.length > 20) {
+        titleFontSize = 16;
+      }
+
       doc.font("Times-Bold")
-        .fontSize(20)
-        .fillColor(primaryColor)
-        .text(restaurantName.toUpperCase(), cardMargin, currentY, {
-          width: pageWidth - cardMargin * 2,
+        .fontSize(titleFontSize)
+        .fillColor(primaryColor);
+
+      const titleHeight = doc.heightOfString(titleText, {
+        width: textAreaWidth,
+        align: "center",
+        lineGap: 2,
+      });
+
+      doc.text(titleText, textStartX, currentY, {
+        width: textAreaWidth,
+        align: "center",
+        lineGap: 2,
+      });
+
+      currentY += titleHeight + 4;
+
+      // Tagline with dynamic measurement
+      if (tagline && tagline.trim().length > 0) {
+        const taglineFontSize = 8;
+        doc.font("Helvetica-Oblique")
+          .fontSize(taglineFontSize)
+          .fillColor("#666666");
+
+        const tagHeight = doc.heightOfString(tagline, {
+          width: textAreaWidth,
           align: "center",
-          characterSpacing: 1.5,
+          lineGap: 1.5,
         });
 
-      currentY += 28;
+        doc.text(tagline, textStartX, currentY, {
+          width: textAreaWidth,
+          align: "center",
+          lineGap: 1.5,
+        });
 
-      // Tagline
-      if (tagline) {
-        doc.font("Helvetica-Oblique")
-          .fontSize(9)
-          .fillColor("#666666")
-          .text(tagline, cardMargin, currentY, {
-            width: pageWidth - cardMargin * 2,
-            align: "center",
-          });
-        currentY += 16;
+        currentY += tagHeight + 6;
+      } else {
+        currentY += 4;
       }
 
       // Elegant divider hairline
       doc.save();
       doc.lineWidth(0.75);
       doc.strokeColor("#D5D1C8");
-      const dividerWidth = 60;
+      const dividerWidth = 50;
       doc.moveTo((pageWidth - dividerWidth) / 2, currentY)
         .lineTo((pageWidth + dividerWidth) / 2, currentY)
         .stroke();
       doc.restore();
 
-      currentY += 18;
+      currentY += 8;
 
       // --- Centered QR Code ---
-      const qrDisplaySize = 160;
+      // Optimal scan size: 140x140 pt (~50x50 mm)
+      const qrDisplaySize = 140;
       const qrX = (pageWidth - qrDisplaySize) / 2;
       const qrY = currentY;
 
@@ -145,37 +178,56 @@ export async function generateTableTentPdf(
         height: qrDisplaySize,
       });
 
-      currentY += qrDisplaySize + 18;
+      currentY += qrDisplaySize + 10;
 
-      // --- Callout Section ---
+      // --- Callout Section with dynamic height ---
+      const calloutFontSize = 11;
       doc.font("Helvetica-Bold")
-        .fontSize(12)
-        .fillColor("#1A1A1A")
-        .text(calloutText, cardMargin, currentY, {
-          width: pageWidth - cardMargin * 2,
-          align: "center",
-        });
+        .fontSize(calloutFontSize)
+        .fillColor("#1A1A1A");
 
-      currentY += 18;
+      const calloutHeight = doc.heightOfString(calloutText, {
+        width: textAreaWidth,
+        align: "center",
+        lineGap: 2,
+      });
 
+      doc.text(calloutText, textStartX, currentY, {
+        width: textAreaWidth,
+        align: "center",
+        lineGap: 2,
+      });
+
+      currentY += calloutHeight + 4;
+
+      // Instruction subtext
+      const instructionText =
+        "Point your smartphone camera at the QR code\nto explore our live digital menu & daily specials.";
       doc.font("Helvetica")
-        .fontSize(8.5)
-        .fillColor("#777777")
-        .text("Point your smartphone camera at the QR code\nto explore our live digital menu & daily specials.", cardMargin, currentY, {
-          width: pageWidth - cardMargin * 2,
-          align: "center",
-          lineGap: 2,
-        });
+        .fontSize(7.5)
+        .fillColor("#777777");
 
-      // --- Footer ---
-      const footerY = pageHeight - 34;
+      const instructionHeight = doc.heightOfString(instructionText, {
+        width: textAreaWidth,
+        align: "center",
+        lineGap: 1.5,
+      });
+
+      doc.text(instructionText, textStartX, currentY, {
+        width: textAreaWidth,
+        align: "center",
+        lineGap: 1.5,
+      });
+
+      // --- Footer at bottom edge of card ---
+      const footerY = pageHeight - cardMargin - 16;
       doc.font("Helvetica")
-        .fontSize(7)
+        .fontSize(6.5)
         .fillColor("#AAAAAA")
-        .text("POWERED BY DIGINU — NO APP DOWNLOAD REQUIRED", cardMargin, footerY, {
-          width: pageWidth - cardMargin * 2,
+        .text("POWERED BY DIGINU — NO APP DOWNLOAD REQUIRED", textStartX, footerY, {
+          width: textAreaWidth,
           align: "center",
-          characterSpacing: 0.8,
+          characterSpacing: 0.6,
         });
 
       doc.end();
@@ -184,4 +236,3 @@ export async function generateTableTentPdf(
     }
   });
 }
-
